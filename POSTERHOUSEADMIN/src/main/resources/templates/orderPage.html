@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+
+<body>
+	<div th:replace="common/header :: navbar" />
+	
+	<!-- Start Banner Area -->
+		
+<div>
+<span style="color: red;"class="alert alert-success" th:if="${UpdateStatus}">Order Status Updated successfully.</span>
+</div>
+<br>
+<h1 style="text-align: center;">ORDER</h1><br>
+<section>
+                               <table id="orderTable" class="table">
+                                                 <thead>
+											<tr>
+												<th scope="col">Order Date</th>
+												<th scope="col">Order Number</th>
+												<th scope="col">Total</th>
+												<th scope="col">Estimate Delivery Date</th>
+												
+												<th scope="col">Status</th>
+												<th scope="col">Opreation</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="order : ${orderList}">
+												<td><a th:href="@{/orderDetail(id=${order.id})}"><span
+														th:text="${order.orderDate}"></span></a></td>
+												<td data-th-text="${'#PosterHouse'+order.id}"></td>
+												<td data-th-text="${order.finalPrice}"></td>
+												<td data-th-text="${order.estimateDate}"></td>
+												<td style="color: red;" ><strong data-th-text="${order.orderStatus}"></strong></td>
+								
+												<td > <a th:href="@{/orderDetail(id=${order.id})}" class="btn btn-primary">Order Details</a>&nbsp;  <span class="dropdown">
+    <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Update Status
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li><a th:href="@{/UpdateStatus(id=${order.id},status=Dispatched)}">Dispatched</a></li>
+      <li><a th:href="@{/UpdateStatus(id=${order.id},status=Delivered)}">Delivered</a></li>
+      <li><a th:href="@{/UpdateStatus(id=${order.id},status=Pending)}">Pending</a></li>
+    </ul>
+  </span>
+&nbsp;
+<a th:href="@{/userOrderInvoice(id=${order.id})}" class="btn btn-info">Generate Order Invoice</a>
+&nbsp;
+<a th:href="@{/download(id=${order.id})}" class="btn btn-info">Download Image</a>
+</td>
+											</tr>
+																							</hr>
+											
+										</tbody> 
+                      </table>
+                      
+                      </section>
+                      
+         
+                          <!-- start footer Area -->
+    		
+			<div th:replace="common/header :: body-bottom-scripts" />
+<script>
+
+function myFunction() {
+	  var x = document.getElementById("myTopnav");
+	  if (x.className === "topnav") {
+	    x.className += " responsive";
+	  } else {
+	    x.className = "topnav";
+	  }
+	}
+	
+
+$(document).ready(function() {
+	$("#orderTable").DataTable({
+		  "lengthMenu": [ [5, 10, 25, -1], [5, 10, 25, "All"] ],
+        "ordering": false,
+		stateSave: true
+	});
+});
+
+</script>
+</body>
+</html>

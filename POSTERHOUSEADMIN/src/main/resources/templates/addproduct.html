@@ -1,0 +1,307 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar" />
+	
+	<div class="container">
+<div class="row">
+<form class="form-horizontal" th:action="@{/addProduct}" method="post"
+				enctype="multipart/form-data">
+				
+				<fieldset>
+					<legend class="center-block">
+						ADD NEW PRODUCT<span style="font-size: small"> * is a
+							required field</span>
+					</legend>
+
+
+					<!-- productCode -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="Product Code">* Product Code</label>
+
+						<div class="col-md-8">
+							<input type="text" name="productCode" class="form-control" id="productCode"
+								th:value="${product.productCode}" required="required" placeholder="Product Code"  />
+						</div>
+					</div>
+
+					<!-- productName -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="productName">*
+							Product Name</label>
+						<div class="col-md-8">
+							<input type="text" name="productName" class="form-control" id="productName"
+								th:value="${product.productName}" required="required"
+								placeholder="Product Name" /> 
+						</div>
+					</div>
+
+					<!-- productDescription -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="productDescription">Product Description</label>
+						<div class="col-md-8">
+							<input type="text" name="productDescription" class="form-control"
+								id="productDescription" th:value="${product.productDescription}"
+								placeholder="Product Description"  required="required"/> 
+						</div>
+					</div>
+
+					<!-- publication date -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="noOfFaces">No Of Faces</label>
+						<div class="col-md-8">
+							<input type="text" class="form-control" id="noOfFaces"
+								name="noOfFaces" th:value="${product.noOfFaces}"
+								placeholder="No Of Faces" required="required"/> 
+						</div>
+					</div>
+
+					<!-- Maximum Quantity -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="maximumQuantity">Maximum Quantity</label>
+						<div class="col-md-8">
+							<input type="text" class="form-control" id="maximumQuantity"
+								name="maximumQuantity" th:value="${product.maximumQuantity}"
+								placeholder="Maximum Quantity" required="required" /> 
+						</div>
+					</div>
+					
+										<!-- Maximum Quantity -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="maximumQuantity">Intial Price of Product</label>
+						<div class="col-md-8">
+							<input type="text" class="form-control" id="ourPrice"
+								name="ourPrice" th:value="${product.ourPrice}"
+								placeholder="Intial Price of Product" required="required" /> 
+						</div>
+					</div>
+
+
+					<!-- category -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="category">*
+							Category</label>
+						<div class="col-md-8">
+							<select  id="category" name="category"
+								class="form-control" required="required">
+								<option  th:each=" category : ${categoryList}" th:value="${category.id}" th:text="${category.productTypeName}"></option>
+							</select> 
+						</div>
+					</div>
+
+<!-- 					<!-- productConfigCode
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="pageNumber">Product Config Code</label>
+
+						<div class="col-md-8">
+							<input type="text" name="numberOfPages" class="form-control"
+								id="pageNumber" th:value="${book.productConfigCode}"
+								placeholder="Page Number" /> <span class="help-block">Product Config Code</span>
+						</div>
+					</div>
+
+					productConfigName
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="format">Product Config-Name</label>
+						<div class="col-md-8">
+							<input type="text" name="numberOfPages" class="form-control"
+								id="pageNumber" th:value="${book.productConfigName}"
+								placeholder="Page Number" /> <span class="help-block">Product Config Name</span>
+
+						</div>
+					</div>
+
+					productConfigDiscription
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="isbn">Product Config Discription</label>
+
+						<div class="col-md-8">
+							<input type="text" name="isbn" class="form-control" id="isbn"
+								th:value="${book.productConfigDiscription}" placeholder="ISBN" /> <span
+								class="help-block">Product Config Discription</span>
+						</div>
+					</div>
+
+					WIDTH
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="shippingWeight">WIDTH
+							</label>
+						<div class="col-md-8">
+							<div class="input-group">
+								<input th:value="${book.WIDTH}" type="number" step="0.01"
+									name="shippingWeight" class="form-control" id="shippingWeight"
+									placeholder="Shipping Weight" /> <span
+									class="input-group-addon">Ounces</span>
+							</div>
+							<span class="help-block">WIDTH</span>
+						</div>
+					</div>
+
+					HEIGHT
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="listPrice">HEIGHT</label>
+						<div class="col-md-8">
+							<div class="input-group">
+								<span class="input-group-addon">&#x20B9;</span> <input
+									th:value="${book.HEIGHT}" type="number" name="listPrice" 
+									class="form-control" id="listPrice" placeholder="List Price" />
+							</div>
+							<span class="help-block">HEIGHT</span>
+						</div>
+					</div>
+
+					DEPTH
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="ourPrice">DEPTH</label>
+						<div class="col-md-8">
+							<div class="input-group">
+								<span class="input-group-addon">&#x20B9;</span> <input
+									th:value="${book.DEPTH}" type="number" name="ourPrice" 
+									class="form-control" id="ourPrice" placeholder="Our Price" />
+							</div>
+							<span class="help-block">DEPTH</span>
+						</div>
+					</div>
+
+					weightOfProduct
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="inStockNumber">Weight Of Product</label>
+						<div class="col-md-8">
+							<input th:value="${book.weightOfProduct}" type="number"
+								name="inStockNumber" class="form-control" id="inStockNumber"
+								placeholder="Number of in-stock copies" /> <span
+								class="help-block">Weight Of Product</span>
+						</div>
+					</div>
+
+					status of book
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="status">Enable</label>
+						<div class="col-md-8">
+							<label><input value="true" type="radio" name="active"
+								checked="checked" /> Active </label> <label><input
+								value="false" type="radio" name="active" />
+								Inactive </label> <span class="help-block">Whether the book is
+								active or inactive</span>
+						</div>
+					</div>
+
+
+					totalWeight
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="description">Discription</label>
+						<div class="col-md-8">
+							<textarea name="description" rows="5" class="form-control"
+								id="description" th:value="${book.description}" placeholder="Description" ></textarea>
+							<span class="help-block"></span>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="inStockNumber">Weight Of Product</label>
+						<div class="col-md-8">
+							<input th:value="${book.weightOfProduct}" type="number"
+								name="inStockNumber" class="form-control" id="inStockNumber"
+								placeholder="Number of in-stock copies" /> <span
+								class="help-block">Weight Of Product</span>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="inStockNumber">Weight Of Product</label>
+						<div class="col-md-8">
+							<input th:value="${book.weightOfProduct}" type="number"
+								name="inStockNumber" class="form-control" id="inStockNumber"
+								placeholder="Number of in-stock copies" /> <span
+								class="help-block">Weight Of Product</span>
+						</div>
+					</div>
+					
+					
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="inStockNumber">Weight Of Product</label>
+						<div class="col-md-8">
+							<input th:value="${book.weightOfProduct}" type="number"
+								name="inStockNumber" class="form-control" id="inStockNumber"
+								placeholder="Number of in-stock copies" /> <span
+								class="help-block">Weight Of Product</span>
+						</div>
+					</div>
+					
+					
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="inStockNumber">Weight Of Product</label>
+						<div class="col-md-8">
+							<input th:value="${book.weightOfProduct}" type="number"
+								name="inStockNumber" class="form-control" id="inStockNumber"
+								placeholder="Number of in-stock copies" /> <span
+								class="help-block">Weight Of Product</span>
+						</div>
+					</div>
+ --> 				
+ 
+ 
+ <div class="form-group">
+						<label class="col-md-2 control-label" for="inStockNumber">Upload Main Image </label>
+						<div class="col-md-8">
+						<p ><img alt="Main Image preview" height="20%" width="20%" id="thumbnail0" /></p>
+							<input  type="file"
+								name="file" class="form-control" id="mainImage"
+								 required="required"/> 
+						</div>
+					</div>
+					
+					
+ <div class="form-group">
+						<label class="col-md-2 control-label" for="inStockNumber">Upload Extra Image:1</label>
+						<div class="col-md-8">
+						<p ><img alt="Main Image preview" height="20%" width="20%" id="thumbnail1" /></p>
+						
+							<input  type="file"
+								name="file" class="form-control" id=extraImage1
+								 /> 
+						</div>
+					</div>
+					
+ <div class="form-group">
+						<label class="col-md-2 control-label" for="inStockNumber">Upload Extra Image:2</label>
+						<div class="col-md-8">
+								<p ><img alt="Main Image preview" height="20%" width="20%" id="thumbnail2" /></p>
+						
+							<input  type="file"
+								name="file" class="form-control" id="extraImage2"
+								 /> 
+						</div>
+					</div>
+					
+ <div class="form-group">
+						<label class="col-md-2 control-label" for="inStockNumber">Upload Extra Image:3</label>
+						<div class="col-md-8">
+							<p ><img alt="Main Image preview" height="20%" width="20%" id="thumbnail3" /></p>
+						
+							<input  type="file"
+								name="file" class="form-control" id="extraImage3"
+								 /> 
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="col-md-2"></div>
+						<div class="col-md-8">
+							<button type="submit" class="btn btn-success">Add Product</button>
+							<a class="btn btn-danger" th:href="@{/}">Cancel</a>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+				
+			
+	</div>
+</div>
+
+	<div th:replace="common/header :: body-bottom-scripts" />
+</body>
+</html>

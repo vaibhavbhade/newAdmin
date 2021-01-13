@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en" xmlns:th="www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <title>A simple, clean, and responsive HTML invoice template</title>
+    
+    <style>
+    .invoice-box {
+        max-width: 800px;
+        margin: auto;
+        padding: 30px;
+        border: 1px solid #eee;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+        font-size: 16px;
+        line-height: 24px;
+        font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        color: #555;
+    }
+    
+    .invoice-box table {
+        width: 100%;
+        line-height: inherit;
+        text-align: left;
+    }
+    
+    .invoice-box table td {
+        padding: 5px;
+        vertical-align: top;
+    }
+    
+    .invoice-box table tr td:nth-child(2) {
+        text-align: right;
+    }
+    
+    .invoice-box table tr.top table td {
+        padding-bottom: 20px;
+    }
+    
+    .invoice-box table tr.top table td.title {
+        font-size: 45px;
+        line-height: 45px;
+        color: #333;
+    }
+    
+    .invoice-box table tr.information table td {
+        padding-bottom: 40px;
+    }
+    
+    .invoice-box table tr.heading td {
+        background: #eee;
+        border-bottom: 1px solid #ddd;
+        font-weight: bold;
+    }
+    
+    .invoice-box table tr.details td {
+        padding-bottom: 20px;
+    }
+    
+    .invoice-box table tr.item td{
+        border-bottom: 1px solid #eee;
+    }
+    
+    .invoice-box table tr.item.last td {
+        border-bottom: none;
+    }
+    
+    .invoice-box table tr.total td:nth-child(2) {
+        border-top: 2px solid #eee;
+        font-weight: bold;
+    }
+    
+    @media only screen and (max-width: 600px) {
+        .invoice-box table tr.top table td {
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+        
+        .invoice-box table tr.information table td {
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+    }
+    
+    /** RTL **/
+    .rtl {
+        direction: rtl;
+        font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+    }
+    
+    .rtl table {
+        text-align: right;
+    }
+    
+    .rtl table tr td:nth-child(2) {
+        text-align: left;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="invoice-box" th:each="order : ${catOrderList}">
+    <h3 style="text-align: center;">Tax Invoice</h3>
+    <hr>
+        <table cellpadding="0" cellspacing="0">
+            <tr class="top">
+                <td colspan="3">
+                    <table>
+                        <tr>
+                            <td class="title">
+                                <img  rel="icon" src="image/logo.png" >
+                            </td>
+                          
+                            <td >
+                                Invoice : <span th:text="${'#PosterHouse'+order.id}"></span><br>
+                                Order No : <span th:text="${'#PosterHouse'+order.id}"></span><br>
+                                Order Date: <span th:text="${order.orderDate}"></span><br>
+                                Invoice Date:<span th:text="${date}"></span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            
+            <tr class="information">
+                <td colspan="3">
+                    <table>
+                        <tr>
+                            <td >
+                            <span><strong>Billing To</strong></span><br>
+                              <span th:text="${order.billingAddress.billingAddressName}"></span><br/>
+			<span th:text="${order.billingAddress.billingAddressStreet1}+' '+${order.billingAddress.billingAddressStreet2}"></span><br/>
+			<span th:text="${order.billingAddress.billingAddressCity}"></span><br/>
+			<span th:text="${order.billingAddress.billingAddressState}"></span><br/>
+			<span th:text="${order.billingAddress.billingAddressZipcode}"></span>
+                            </td>
+                                  <td >
+                                   <span><strong>Shipping To</strong></span><br>
+                              <span th:text="${order.shippingAddress.shippingAddressName}"></span><br/>
+			<span th:text="${order.shippingAddress.shippingAddressStreet1}+' '+${order.shippingAddress.shippingAddressStreet2}"></span><br/>
+			<span th:text="${order.shippingAddress.shippingAddressCity}"></span><br/>
+			<span th:text="${order.shippingAddress.shippingAddressState}"></span><br/>
+			<span th:text="${order.shippingAddress.shippingAddressZipcode}"></span>
+                            </td>
+                            <td style="text-align: right;">
+                                <span th:text="${order.user.firstName}"></span><br>
+                                <span th:text="${order.user.phone}"></span><br>
+                                <span th:text="${order.user.email}"></span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            
+
+            
+           
+            
+            <tr class="heading">
+                <td>
+                    Item
+                </td>
+                     <td style="text-align:center">
+                   Quantity
+                </td>
+                <td>
+                    Price
+                </td>
+                
+                
+            </tr>
+          
+           <tr class="item" th:each="cartItem : ${order.cartItemList}" >
+                <td>
+                  <span th:text="${cartItem.product.productName}"></span>
+                </td>
+                <td style="text-align:center" > <span data-th-text="${cartItem.qty}"></span></td>
+                <td>
+                    <span data-th-text="'Rs.'+${cartItem.subtotal}"></span>
+                </td>
+            </tr>
+            
+            <tr class="total">
+            <td></td>
+            <td style="text-align:center"></td>
+            <td>Shipping rate Rs.50</td>
+  </tr>
+            <tr class="total">
+                <td></td>
+                <td> Total:<span th:text="${'Rs.'+order.finalPrice}"></span> </td>
+                
+               
+            </tr>
+        </table>
+        <button  class="btn btn-primary" onclick="window.print()">Print this page</button>
+    </div>
+
+</body>
+</html>

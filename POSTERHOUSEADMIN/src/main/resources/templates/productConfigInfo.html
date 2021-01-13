@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar" />
+	
+	<div class="container">
+		<div>
+			<ol class="breadcrumb">
+				<li><a  class="btn btn-primary" th:href="@{/}"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>Go back</a></li>
+				<li><a class="btn btn-primary" th:href="@{/updateProductConfig?id=}+${productConfig.id}">Edit</a></li>
+			</ol>
+			
+		</div>
+		<br>
+		<<div>
+	<span style="color: red;"class="alert alert-success" th:if="${UpdateSucess}">Update ProductConfig successfully.</span>
+	
+	</div>
+		<div class="row">
+			<div class="col-xs-3">
+				<div class="panel panel-default">
+				<div class="panel-body">
+					<img th:src="@{/image/book/}+${productConfig.id}+'.png'" class="img-responsive center-block" />
+				</div>
+				</div>
+			</div>
+			
+			<div class="col-xs-9">
+				<h3 th:text="${productConfig.productConfigName}"></h3>
+				<div class="row">
+					<div class="col-xs-6">
+						<p><strong>Product Config-Name : </strong><span th:text="${productConfig.productConfigName}"></span></p>
+						<p><strong>Product Config-Code : </strong><span th:text="${productConfig.productConfigCode}"></span></p>
+						<p><strong>Product Config-Discription : </strong><span th:text="${productConfig.productConfigDiscription}"></span></p>
+						<p><strong>size : </strong><span th:text="${productConfig.size}"></span></p>
+	<!-- category -->   <p><strong>WIDTH : </strong><span style="color: red;" th:text="${productConfig.WIDTH}"></span></p>
+						<p><strong>HEIGHT : </strong><span th:text="${productConfig.HEIGHT}"></span></p>
+					    <p><strong>DEPTH : </strong><span th:text="${productConfig.DEPTH}"></span></p>
+					     <p><strong>Weight Of Product : </strong><span th:text="${productConfig.weightOfProduct}"></span></p>
+					     <p><strong>Total Weight : </strong><span th:text="${productConfig.totalWeight}"></span></p>
+					     <p><strong> Price Per-Qty : </strong><span th:text="${productConfig.pricePerQty}"></span></p>
+						<p><strong>Price Per-Face : </strong><span th:text="${productConfig.pricePerFace}"></span></p>
+						<p><strong>Duration To Make :  </strong><span th:text="${productConfig.durationToMake}"></span></p>
+						<p><strong>Availibility : </strong><span th:text="${productConfig.availibility}"></span></p>
+						<p><strong>Created Date : </strong><span th:text="${productConfig.cretedDate}"></span></p>
+					
+					</div>
+				
+			</div>
+			
+		</div>
+	</div>
+
+	<div th:replace="common/header :: body-bottom-scripts" />
+</body>
+</html>

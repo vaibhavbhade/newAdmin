@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar" />
+	
+	<div class="container">
+		<div>
+			<ol class="breadcrumb">
+				<li><a   class="btn btn-primary" th:href="@{/productList}"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>Go back</a></li>
+				<li><a class="btn btn-primary" th:href="@{/updateproduct?id=}+${product.id}">Edit</a></li>
+			</ol>
+			
+		</div>
+		<br>
+		<div>
+	<span style="color: red;"class="alert alert-success" th:if="${UpdateSucess}">Update Product successfully.</span>
+	</div>
+		<div class="row">
+			<div class="col-xs-3">
+				<div class="panel panel-default">
+				<div class="panel-body">
+					<img th:src="@{${productImage.mainImageUrl}}" class="img-responsive center-block" />
+				</div>
+				</div>
+			</div>
+			<div class="col-xs-9">
+				<h3 th:text="${product.productName}"></h3>
+				<div class="row">
+					<div class="col-xs-6">
+						<p><strong>Product Code: </strong><span th:text="${product.productCode}"></span></p>
+						<p><strong>Product Description</strong><span th:text="${product.productDescription}"></span></p>
+						<p><strong>Created Date: </strong><span th:text="${product.cretedDate}"></span></p>
+						<p><strong>No Of Faces: </strong><span th:text="${product.noOfFaces}"></span></p>
+	                    <p><strong>Maximum Quantity: </strong><span style="color: red;" th:text="${product.maximumQuantity}"></span></p>
+						<p><strong>Our Price: </strong><span th:text="${product.ourPrice}"></span></p>
+					    <p><strong>Category Name: </strong><span th:text="${categoryName}"></span></p>
+						
+					</div>
+				
+			</div>
+			
+		</div>
+	</div>
+
+	<div th:replace="common/header :: body-bottom-scripts" />
+</body>
+</html>

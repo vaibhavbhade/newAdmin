@@ -1,0 +1,215 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar" />
+	
+	<div class="container">
+<div class="row">
+
+
+<br>
+<form class="form-horizontal"  th:action="@{/addproductConfig}" method="post">
+
+
+
+				
+				<input type="hidden"    th:name="product" th:value="${product.id}" >
+				
+				<fieldset>
+					<legend class="center-block">
+						ADD NEW PRODUCT Config<span style="font-size: small"> * is a
+							required field</span>
+					</legend>
+					
+<!-- 				ProductConfigCode
+ -->					<div class="form-group">
+						<label class="col-md-2 control-label" for="ProductConfigCode">Product Config Code</label>
+                          <div class="col-md-8">
+							<input type="text" name="ProductConfigCode" class="form-control"
+								id="ProductConfigCode" th:value="${productConfig.productConfigCode}"
+								placeholder="Product Config Code"  required="required" /> 
+						</div>
+					</div>
+
+					<!-- productConfigName -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="productConfigName">Product Config-Name</label>
+						<div class="col-md-8">
+							<input type="text" name="productConfigName" class="form-control"
+								id="productConfigName" th:value="${productConfig.productConfigName}"
+								placeholder="Product Config-Name" required="required" /> 
+
+						</div>
+					</div>
+
+
+
+					<!-- WIDTH -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="WIDTH">WIDTH
+							</label>
+						<div class="col-md-8">
+							<div class="input-group">
+							<span class="input-group-addon">MM</span>	<input th:value="${productConfig.WIDTH}" type="number" step="0.01"
+									name="WIDTH" class="form-control" id="WIDTH"
+									placeholder="WIDTH" required="required"/> 
+							</div>
+							
+						</div>
+					</div>
+
+					<!-- HEIGHT -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="HEIGHT">HEIGHT</label>
+						<div class="col-md-8">
+							<div class="input-group">
+								<span class="input-group-addon">MM</span> <input
+									th:value="${productConfig.HEIGHT}" type="number" name="HEIGHT" 
+									class="form-control" id="HEIGHT" placeholder="HEIGHT" required="required"/>
+							</div>
+				
+						</div>
+					</div>
+
+					<!-- DEPTH -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="DEPTH">DEPTH</label>
+						<div class="col-md-8">
+							<div class="input-group"><span class="input-group-addon">MM</span>
+								 <input
+									th:value="${productConfig.DEPTH}" type="number" name="DEPTH" 
+									class="form-control" id="DEPTH" placeholder="DEPTH" required="required"  />
+							</div>
+						</div>
+					</div>
+					
+					
+										<!-- size -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="size">Size</label>
+						<div class="col-md-8">
+							<div class="input-group">
+								<span class="input-group-addon"> M X M</span> <input
+									th:value="${productConfig.size}" type="text" name="size" 
+									class="form-control" id="size" placeholder="size" required="required" />
+							</div>
+						</div>
+					</div>
+
+					<!-- weightOfProduct -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="weightOfProduct">Weight Of Product</label>
+						<div class="col-md-8">
+							<input th:value="${productConfig.weightOfProduct}" type="number"
+								name="weightOfProduct" class="form-control" id="weightOfProduct"
+								placeholder="Weight Of Product" required="required"  /> 
+						</div>
+					</div>
+
+<!-- 					status of ProductConfig
+ -->					<div class="form-group">
+						<label class="col-md-2 control-label" for="status">Status</label>
+						<div class="col-md-8">
+							<label><input value="true" type="radio" name="isActive"
+								checked="checked" /> Active </label> <label><input
+								value="false" type="radio" name="isActive"  required="required"/>
+								Inactive </label> <span class="help-block">Whether the book is
+								active or inactive</span>
+						</div>
+					</div>
+
+
+					<!-- productConfigDiscription -->
+										<div class="form-group">
+						<label class="col-md-2 control-label" for="productConfigDiscription">Product-Config Discription</label>
+						<div class="col-md-8">
+							<input  type="rext" name="productConfigDiscription" rows="5" class="form-control"
+								id="productConfigDiscription" th:value="${productConfig.productConfigDiscription}" placeholder="ProductConfig Discription" required="required"/>
+							<span class="help-block">Description of the Product</span>
+						</div>
+					</div>
+					
+					<!-- totalWeight -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="totalWeight">Total Weight</label>
+						<div class="col-md-8">
+							<input th:value="${productConfig.totalWeight}" type="number"
+								name="totalWeight" class="form-control" id="totalWeight"
+								placeholder="Total Weight" required="required"  /> 
+						</div>
+					</div>
+					
+					
+					<!-- pricePerQty -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="pricePerQty">Price Per-Qty</label>
+						<div class="col-md-8">
+							<span class="input-group-addon">&#x20B9;</span><input th:value="${productConfig.pricePerQty}" type="number"
+								name="pricePerQty" class="form-control" id="pricePerQty"
+								placeholder="Price Per-Qty" required="required" />
+						</div>
+					</div>
+					
+					<!-- pricePerFace -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="pricePerFace">Price Per-Face</label>
+						<div class="col-md-8">
+							<span class="input-group-addon">&#x20B9;</span><input th:value="${productConfig.pricePerFace}" type="number"
+								name="pricePerFace" class="form-control" id="pricePerFace"
+								placeholder="Price Per-Face" required="required" /> 
+						</div>
+					</div>
+					
+					
+					
+							<!-- durationToMake -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="durationToMake">Duration To Make</label>
+						<div class="col-md-8">
+							<input th:value="${productConfig.durationToMake}" type="number"
+								name="durationToMake" class="form-control" id="durationToMake"
+								placeholder="Duration To Make"  required="required"/> 
+						</div>
+					</div>
+					
+					
+							<!-- availibility -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="availibility">Availibility</label>
+						<div class="col-md-8">
+							<input th:value="${productConfig.availibility}" type="number"
+								name="availibility" class="form-control" id="availibility"
+								placeholder="Availibility" required="required" /> 
+						</div>
+					</div>
+					
+
+<!-- 					upload image
+					<div class="form-group">
+						<div class="col-md-2">
+							<label for="bookImage">Upload book image</label>
+						</div>
+						<div class="col-md-8">
+							<input id="bookImage" type="file" name="bookImage"
+								th:value="${book.bookImage}" />
+						</div>
+					</div> -->
+  
+					<div class="form-group">
+						<div class="col-md-2"></div>
+						<div class="col-md-8">
+							<button type="submit" class="btn btn-success">Add Product Config</button>
+							<a class="btn btn-danger" th:href="@{/}">Cancel</a>
+						</div>
+					</div>
+					
+</fieldset>
+</form>
+</div>
+</div>
+
+</body>
+</html>
