@@ -187,6 +187,14 @@ public void setOrder(Order order) {
 	this.order = order;
 }
 
+@Override
+public String toString() {
+	return "UserPayment [id=" + id + ", CO=" + CO + ", CB=" + CB + ", MO=" + MO + ", MB=" + MB + ", AT=" + AT + ", DT="
+			+ DT + ", ST=" + ST + ", amount=" + amount + ", amount_paid=" + amount_paid + ", currency=" + currency
+			+ ", TXNID=" + TXNID + ", gatewayName=" + gatewayName + ", status=" + status + ", paymentMode="
+			+ paymentMode + ", transectionDate=" + transectionDate + ", order=" + order + "]";
+}
+
 
 
 

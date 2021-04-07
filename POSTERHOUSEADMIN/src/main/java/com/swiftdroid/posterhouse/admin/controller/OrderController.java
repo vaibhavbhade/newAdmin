@@ -3,6 +3,7 @@ package com.swiftdroid.posterhouse.admin.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -86,7 +87,6 @@ public class OrderController {
 			if (order.getUserPayment() != null)
 				finaltodaysOrder.add(order);
 		}
-
 		model.addAttribute("orderList", finaltodaysOrder);
 		return "orderPage";
 
@@ -106,13 +106,13 @@ public class OrderController {
 
 	@RequestMapping(value = "/download", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<Object> downloadFile(@RequestParam("id") Long orderId, @RequestParam("cartId") Long cartId)
+	public ResponseEntity<Object> downloadFile(@RequestParam("id") Long orderId, @RequestParam("cartId") Long cartId,@RequestParam("count") Long count)
 			throws IOException {
 
 		Order order = orderService.findOrderById(orderId);
 		CartItem userCartItem = cartItemService.getCartItemById(cartId);
 		List<CartItem> CartItemList = order.getCartItemList();
-
+System.out.println("order date :: "+order.getOrderDate());
 		User user = order.getUser();
 
 		for (CartItem cartItem : CartItemList) {
@@ -120,9 +120,10 @@ public class OrderController {
 			if (cartItem.equals(userCartItem)) {
 
 				Product product = cartItem.getProduct();
-				String fileName = user.getId() + "_" + product.getId() + "_" + order.getId() + "_"
-						+ order.getOrderDate().getDate() + "-" + order.getOrderDate().getDay() + "_"
-						+ order.getOrderDate().getYear() + ".png";
+				// 223_670_784_1_20210407205530949 
+					
+				
+				String fileName = user.getId() + "_" + product.getId() + "_" + order.getId() + "_"+count+"_"+order.getDownloadpath()+".png";
 				// String FileName = websitePath + "/img/user/userproductImage/" + fileName;
 				String photoName = "C:\\java\\POSTERHOUSE\\src\\main\\resources\\static\\img\\user\\userproductImage\\"
 						+ fileName;
@@ -130,8 +131,8 @@ public class OrderController {
 				File file = new File(photoName);
 				InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
 
-				HttpHeaders headers = new HttpHeaders();
-				headers.add("Content-Disposition", String.format("attachment; filename=\"%s\"", user.getFirstName()
+				HttpHeaders headers = new HttpHeaders();//223_670_764_1_20210407173509000
+				headers.add("Content-Disposition", String.format("attachment; filename=\"%s\"", "image_"+count+"_"+user.getFirstName()
 						+ "_" + product.getProductName() + "_" + order.getOrderDate() + "_" + file.getName()));
 				headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
 				headers.add("Pragma", "no-cache");
@@ -139,7 +140,8 @@ public class OrderController {
 
 				ResponseEntity<Object> responseEntity = ResponseEntity.ok().headers(headers)
 						.contentLength(file.length()).contentType(MediaType.parseMediaType("application/octet-stream"))
-						.body(resource);
+				.body(resource);
+					
 
 				return responseEntity;
 			}
@@ -171,6 +173,7 @@ public class OrderController {
 
 		model.addAttribute("user", user);
 
+		model.addAttribute("user", user);
 		return "orderDetails";
 
 	}

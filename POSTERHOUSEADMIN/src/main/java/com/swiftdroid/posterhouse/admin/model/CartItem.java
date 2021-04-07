@@ -24,6 +24,8 @@ public class CartItem {
 	private BigDecimal subtotal;
 	private String size;
 	
+	
+	
 	@OneToOne
 	private Product Product;
 	
@@ -128,6 +130,15 @@ public class CartItem {
 
 	public void setSize(String size) {
 		this.size = size;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "CartItem [id=" + id + ", qty=" + qty + ", subtotal=" + subtotal + ", size=" + size + ", Product="
+				+ Product + ", productConfig=" + productConfig + ", ProductToCartItemList=" + ProductToCartItemList
+				+ ", shoppingCart=" + shoppingCart + ", order=" + order + "]";
 	}
 	
 	

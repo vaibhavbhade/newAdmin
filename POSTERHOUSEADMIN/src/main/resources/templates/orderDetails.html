@@ -36,12 +36,12 @@
 					<td th:text="${order.id}"></td>
 					<td th:text="${cartItem.product.productName}"></td>
 					<td   th:text="${order.tackingId}"></td>
-					
 				    <td th:text="${cartItem.qty}"></td>
-					
-					
-					<td><a th:href="@{/download(id=${order.id},cartId=${cartItem.id})}"
-						class="btn btn-info">Download Image</a></td>
+					<th:block  th:each="i: ${#numbers.sequence(1,cartItem.qty)}">
+					<td ><a th:href="@{/download(id=${order.id},cartId=${cartItem.id},count=${i})}"
+						class="btn btn-info">Download Image <span th:text="${i}"></span></a></td>
+						
+						</th:block>
 				</tr>
 				</hr>
 

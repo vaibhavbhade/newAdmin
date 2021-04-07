@@ -39,7 +39,7 @@ public class Order {
 	private boolean delhiveryStatus;
 	
 	private Long tackingId;
-	
+	private String downloadpath;
 	@OneToMany(mappedBy = "order", cascade=CascadeType.ALL )
 	private List<CartItem> cartItemList;
 	
@@ -65,6 +65,12 @@ public class Order {
 
 
 	
+	public Order() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
 	public Long getId() {
 		return id;
 	}
@@ -225,6 +231,19 @@ public class Order {
 	public void setDelhiveryStatus(boolean delhiveryStatus) {
 		this.delhiveryStatus = delhiveryStatus;
 	}
+
+
+	public String getDownloadpath() {
+		return downloadpath;
+	}
+
+
+	public void setDownloadpath(String downloadpath) {
+		this.downloadpath = downloadpath;
+	}
+
+
+	
 	
 
 }

@@ -21,6 +21,11 @@ public class BillingAddress {
 	private String BillingAddressCountry;
 	private String BillingAddressZipcode;
 	
+	public BillingAddress() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	@OneToOne
 	private Order order;
 
@@ -94,6 +99,14 @@ public class BillingAddress {
 
 	public void setOrder(Order order) {
 		this.order = order;
+	}
+
+	@Override
+	public String toString() {
+		return "BillingAddress [id=" + id + ", BillingAddressName=" + BillingAddressName + ", BillingAddressStreet1="
+				+ BillingAddressStreet1 + ", BillingAddressStreet2=" + BillingAddressStreet2 + ", BillingAddressCity="
+				+ BillingAddressCity + ", BillingAddressState=" + BillingAddressState + ", BillingAddressCountry="
+				+ BillingAddressCountry + ", BillingAddressZipcode=" + BillingAddressZipcode + ", order=" + order + "]";
 	}
 
 }

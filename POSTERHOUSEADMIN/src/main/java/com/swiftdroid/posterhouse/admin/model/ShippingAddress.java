@@ -21,6 +21,12 @@ public class ShippingAddress {
 	private String phone;
 
 	
+	public ShippingAddress() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
 	@OneToOne
 	private Order order;
 
@@ -122,6 +128,16 @@ public class ShippingAddress {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+
+	@Override
+	public String toString() {
+		return "ShippingAddress [id=" + id + ", ShippingAddressName=" + ShippingAddressName
+				+ ", ShippingAddressStreet1=" + ShippingAddressStreet1 + ", ShippingAddressStreet2="
+				+ ShippingAddressStreet2 + ", ShippingAddressCity=" + ShippingAddressCity + ", ShippingAddressState="
+				+ ShippingAddressState + ", ShippingAddressCountry=" + ShippingAddressCountry
+				+ ", ShippingAddressZipcode=" + ShippingAddressZipcode + ", phone=" + phone + ", order=" + order + "]";
 	}
 
 	
