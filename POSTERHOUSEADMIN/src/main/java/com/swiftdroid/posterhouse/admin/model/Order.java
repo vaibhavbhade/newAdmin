@@ -36,6 +36,10 @@ public class Order {
 	@Temporal(TemporalType.DATE)
     private Date createdDate;
 	
+	private boolean delhiveryStatus;
+	
+	private Long tackingId;
+	
 	@OneToMany(mappedBy = "order", cascade=CascadeType.ALL )
 	private List<CartItem> cartItemList;
 	
@@ -53,9 +57,8 @@ public class Order {
 	 
 	
 	
-	 /* @OneToOne(cascade=CascadeType.ALL) private Payment payment;
-	 
-	*/
+	  @OneToOne(cascade = CascadeType.ALL)
+		private UserPayment userPayment;
 	  
 	@ManyToOne
 	private User user;
@@ -190,9 +193,38 @@ public class Order {
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
+
+
+
+
+
+	public UserPayment getUserPayment() {
+		return userPayment;
+	}
+
+
+	public void setUserPayment(UserPayment userPayment) {
+		this.userPayment = userPayment;
+	}
+
+
+	public Long getTackingId() {
+		return tackingId;
+	}
+
+
+	public void setTackingId(Long tackingId) {
+		this.tackingId = tackingId;
+	}
 	
 	
-	
+	public boolean isDelhiveryStatus() {
+		return delhiveryStatus;
+	}
+
+	public void setDelhiveryStatus(boolean delhiveryStatus) {
+		this.delhiveryStatus = delhiveryStatus;
+	}
 	
 
 }

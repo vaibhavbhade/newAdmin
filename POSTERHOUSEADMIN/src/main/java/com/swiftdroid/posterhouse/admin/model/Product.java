@@ -67,9 +67,12 @@ public class Product implements Serializable {
 	@Column(name="OPC")
 	private double ourPrice;
 	
-	@Column(name = "ia")
-	private boolean isEnable=true;
+	@Column(name = "adminstatus")
+	private boolean adminStatus;
 
+	
+	@Column(name = "ia")
+	private boolean status; 
     @Transient
 	private MultipartFile bookImage;
 
@@ -160,12 +163,15 @@ public class Product implements Serializable {
 		this.maximumQuantity = maximumQuantity;
 	}
 
-	public boolean isEnable() {
-		return isEnable;
+
+	
+	
+	public boolean isStatus() {
+		return status;
 	}
 
-	public void setEnable(boolean isEnable) {
-		this.isEnable = isEnable;
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 	public MultipartFile getBookImage() {
@@ -232,6 +238,14 @@ public List<ProductToCartItem> getProductToCartItemList() {
 
 	public void setProductImage(ProductImage productImage) {
 		this.productImage = productImage;
+	}
+
+	public boolean isAdminStatus() {
+		return adminStatus;
+	}
+
+	public void setAdminStatus(boolean adminStatus) {
+		this.adminStatus = adminStatus;
 	}
 
 	

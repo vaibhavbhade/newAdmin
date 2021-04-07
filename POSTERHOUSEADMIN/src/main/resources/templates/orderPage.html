@@ -6,10 +6,15 @@
 <body>
 	<div th:replace="common/header :: navbar" />
 	
-	<!-- Start Banner Area -->
+	<!-- Start Banner Area --><div class="alert alert-success" th:if="${pickUpSuccess}" role="alert">
+  Order PickUp Updated successfully!
+</div>
+<div class="alert alert-danger" th:if="${Error}" role="alert">
+  Something Went Wrong!
+</div>
 		
 <div>
-<span style="color: red;"class="alert alert-success" th:if="${UpdateStatus}">Order Status Updated successfully.</span>
+<span style="color: green;"class="alert alert-success" th:if="${UpdateStatus}">Order Status Updated successfully.</span>
 </div>
 <br>
 <h1 style="text-align: center;">ORDER</h1><br>
@@ -20,6 +25,7 @@
 												<th scope="col">Order Date</th>
 												<th scope="col">Order Number</th>
 												<th scope="col">Total</th>
+												<th scope="col">Payment Status</th>
 												<th scope="col">Estimate Delivery Date</th>
 												
 												<th scope="col">Status</th>
@@ -32,6 +38,8 @@
 														th:text="${order.orderDate}"></span></a></td>
 												<td data-th-text="${'#PosterHouse'+order.id}"></td>
 												<td data-th-text="${order.finalPrice}"></td>
+												<td data-th-text="${order.UserPayment.status}"></td>
+												
 												<td data-th-text="${order.estimateDate}"></td>
 												<td style="color: red;" ><strong data-th-text="${order.orderStatus}"></strong></td>
 								
@@ -46,8 +54,103 @@
   </span>
 &nbsp;
 <a th:href="@{/userOrderInvoice(id=${order.id})}" class="btn btn-info">Generate Order Invoice</a>
+<br><br>
+<button th:if="${order.delhiveryStatus} AND ${order.orderStatus}==created"  data-toggle="modal" data-target="#myModal" th:attrappend="data-target=${order.id}" class="btn btn-info">Pickup Request</button>
 &nbsp;
-<a th:href="@{/download(id=${order.id})}" class="btn btn-info">Download Image</a>
+<a  th:href="@{/Delhivery/Packing-Slip(Waybill=${order.tackingId},orderId=${order.id})}" class="btn btn-info">Generate Packing-Slip</a>
+
+
+<div class="modal fade" id="myModal" role="dialog" th:attrappend="id=${order.id}">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                                </div>
+                                <div class="modal-body">
+
+
+                                    <!--Form code start from here  -->
+
+
+                                    <!-- Form Name -->
+                                  <h4 style="text-align: center;">  <Strong >PickUp Order</Strong></h4><br>
+
+                                    <form class="form-horizontal"  th:action="@{/pickUpRequest}"
+                                          method="post">
+                                        <fieldset>
+
+                                            <div class="form-group">
+                                                <label class="col-md-6 control-label" for="roll"> Select PickUp Time</label>
+                                                <div class="col-md-6">
+
+                                                    <input id="id" path="id" name="id" type="hidden"
+                                                           placeholder="id" class="form-control input-md"
+                                                           th:value="${order.id}"/>
+
+                                                        
+                                                    <input id="firstName" path="companyName" name="PickUpTime"
+                                                           type="time" placeholder="PickUp Time"
+                                                           class="form-control input-md" 
+                                                   />
+                                                </div>
+                                            </div>
+
+
+                                            <!-- Text input-->
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label" for="companyName">Pickup  Date</label>
+                                                <div class="col-md-4">
+                                                    <input id="firstName" path="companyName" name="PickUpDate"
+                                                           type="date" placeholder="PickUp Date"
+                                                           class="form-control input-md" 
+                                                   />
+                                                </div>
+                                            </div>
+
+
+                                            <!-- Text input-->
+                                            <div class="form-group">
+                                                <label class="col-md-6 control-label" for="stockName">PickUp Location
+                                                </label>
+                                                <div class="col-md-6">
+                                                    <input id="lastName" path="stockName" name="PickUpLocation"
+                                                           type="text" placeholder="PickUp Location"
+                                                           class="form-control input-md"
+                                                           />
+                                                </div>
+                                            </div>
+
+
+                              
+
+                                         
+
+                                            <!-- Button -->
+                                            <div class="form-group">
+                                                <label class="col-md-6 control-label" for="register"></label>
+                                                <div class="col-md-6">
+                                                        <center> 
+                                                <button  id="register" name="register" class="btn btn-success">
+                                                     Submit
+                                                    </button></center>
+                                                </div>
+                                            </div>
+
+                                        </fieldset>
+                                    </form>
+
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+
+
+                            </div>
+
+                        </div>
 </td>
 											</tr>
 																							</hr>

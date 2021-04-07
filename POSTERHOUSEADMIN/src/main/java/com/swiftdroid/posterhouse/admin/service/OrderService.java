@@ -10,7 +10,8 @@ public interface OrderService {
 	long findListOfOrder();
 	List<Order> findOrderByTodaysDate(Date today);
 	List<Order> allOrder();
-	Order findOrderById(Long Id);
 	List<Order> UpdateOrder(Order order);
+	Order saveOrder(Order order);
+	Order findOrderById(Long id);
 	
 }

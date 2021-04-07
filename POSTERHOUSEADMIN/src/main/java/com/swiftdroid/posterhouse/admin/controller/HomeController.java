@@ -1,13 +1,18 @@
 package com.swiftdroid.posterhouse.admin.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.swiftdroid.posterhouse.admin.model.Order;
@@ -45,18 +50,26 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/home")
-	public String Home(Model model) {
+	public String Home(Model model,@RequestParam(name="error",required = false) boolean error) throws Exception   {
 		System.out.println("/Home::"+orderService.findListOfOrder());
 		long totalOrder=orderService.findListOfOrder();
 		Date today=new Date();
+		List<Order> finaltodaysOrder=new ArrayList<Order>();
+		
 		List<Order> todaysOrder=orderService.findOrderByTodaysDate(today);
-		model.addAttribute("todaysOrder", todaysOrder.size());
+		for (Order order : todaysOrder) {
+			if(order.getUserPayment() != null)
+			finaltodaysOrder.add(order);
+		}
+		model.addAttribute("todaysOrder", finaltodaysOrder.size());
 		model.addAttribute("totalOrder", totalOrder);
 		long userCount=userService.userCount();
 		List<User> userList =userService.findAllUser();
 		model.addAttribute("userList",userList);
 		model.addAttribute("userCount", userCount);
-		
+	if(error) {
+		model.addAttribute("error",true);
+	}
 		model.addAttribute("categoryList", categoryService.findAll());
 		
 		return "home";
@@ -64,7 +77,11 @@ public class HomeController {
 	
     @RequestMapping("/login")
 	public String login() {
+    	Authentication	authentication=SecurityContextHolder.getContext().getAuthentication();
+		if(authentication==null || authentication instanceof AnonymousAuthenticationToken) {
 		return "login";
+		}
+		return "redirect:/";
 	}
     
     @RequestMapping("/userInfo")

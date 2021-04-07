@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,18 +31,32 @@ import com.swiftdroid.posterhouse.admin.service.OrderService;
 @Controller
 public class OrderController {
 
-	  @Autowired
-	   private OrderService orderService;
-	
+	@Autowired
+	private OrderService orderService;
+
 	@Autowired
 	private CartItemService cartItemService;
 
 	@RequestMapping("/viewOrderDetails")
-	public String viewOrderDetails(Model model) {
+	public String viewOrderDetails(Model model, @RequestParam(name = "error", required = false) boolean error,
+			@RequestParam(name = "pickUpSuccess", required = false) boolean pickUpSuccess) {
+
+		List<Order> finaltodaysOrder = new ArrayList<Order>();
 
 		List<Order> orderList = orderService.allOrder();
+		for (Order order : orderList) {
+			if (order.getUserPayment() != null)
+				finaltodaysOrder.add(order);
+		}
+		model.addAttribute("orderList", finaltodaysOrder);
 
-		model.addAttribute("orderList", orderList);
+		if (error) {
+			model.addAttribute("Error", true);
+		}
+		if (pickUpSuccess) {
+			model.addAttribute("pickUpSuccess", true);
+		}
+
 		return "orderPage";
 
 	}
@@ -64,8 +79,15 @@ public class OrderController {
 	@GetMapping("/getAllRecentOrder")
 	public String getAllOrdersFrom(Model model) {
 		Date today = new Date();
+		List<Order> finaltodaysOrder = new ArrayList<Order>();
+
 		List<Order> orderList = orderService.findOrderByTodaysDate(today);
-		model.addAttribute("orderList", orderList);
+		for (Order order : orderList) {
+			if (order.getUserPayment() != null)
+				finaltodaysOrder.add(order);
+		}
+
+		model.addAttribute("orderList", finaltodaysOrder);
 		return "orderPage";
 
 	}
@@ -82,104 +104,130 @@ public class OrderController {
 		return "invoice";
 	}
 
-	
-
-	 
-	 
 	@RequestMapping(value = "/download", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<Object> downloadFile(@RequestParam("id") Long orderId,@RequestParam("cartId") Long cartId) throws IOException {
+	public ResponseEntity<Object> downloadFile(@RequestParam("id") Long orderId, @RequestParam("cartId") Long cartId)
+			throws IOException {
 
-		
-	 
-		
 		Order order = orderService.findOrderById(orderId);
-		CartItem userCartItem= cartItemService.getCartItemById(cartId);
+		CartItem userCartItem = cartItemService.getCartItemById(cartId);
 		List<CartItem> CartItemList = order.getCartItemList();
 
 		User user = order.getUser();
 
 		for (CartItem cartItem : CartItemList) {
-			
-			if(cartItem.equals(userCartItem)) {
 
-			Product product = cartItem.getProduct();
-			String fileName = user.getId() + "_" + product.getId() +"_"+order.getId()+"_"+order.getOrderDate().getDate()+"-"+order.getOrderDate().getDay()+"_"+order.getOrderDate().getYear()+".png";
-			//String FileName = websitePath + "/img/user/userproductImage/" + fileName;
-			String photoName="C:\\java\\POSTERHOUSE\\src\\main\\resources\\static\\img\\user\\userproductImage\\"+fileName;
+			if (cartItem.equals(userCartItem)) {
 
-			File file = new File(photoName);
-			InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+				Product product = cartItem.getProduct();
+				String fileName = user.getId() + "_" + product.getId() + "_" + order.getId() + "_"
+						+ order.getOrderDate().getDate() + "-" + order.getOrderDate().getDay() + "_"
+						+ order.getOrderDate().getYear() + ".png";
+				// String FileName = websitePath + "/img/user/userproductImage/" + fileName;
+				String photoName = "C:\\java\\POSTERHOUSE\\src\\main\\resources\\static\\img\\user\\userproductImage\\"
+						+ fileName;
 
-			HttpHeaders headers = new HttpHeaders();
-			headers.add("Content-Disposition", String.format("attachment; filename=\"%s\"", user.getFirstName()+"_"+product.getProductName()+"_"+order.getOrderDate()+"_"+file.getName()));
-			headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
-			headers.add("Pragma", "no-cache");
-			headers.add("Expires", "0");
+				File file = new File(photoName);
+				InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
 
-			ResponseEntity<Object> responseEntity = ResponseEntity.ok().headers(headers).contentLength(file.length())
-					.contentType(MediaType.parseMediaType("application/octet-stream")).body(resource);
+				HttpHeaders headers = new HttpHeaders();
+				headers.add("Content-Disposition", String.format("attachment; filename=\"%s\"", user.getFirstName()
+						+ "_" + product.getProductName() + "_" + order.getOrderDate() + "_" + file.getName()));
+				headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+				headers.add("Pragma", "no-cache");
+				headers.add("Expires", "0");
 
-			return responseEntity;
+				ResponseEntity<Object> responseEntity = ResponseEntity.ok().headers(headers)
+						.contentLength(file.length()).contentType(MediaType.parseMediaType("application/octet-stream"))
+						.body(resource);
+
+				return responseEntity;
 			}
 
 		}
 		return null;
-		
-		
-	
 
-	
-}
+	}
 
-@GetMapping("/orderDetail")
-public String OrderDetails(@RequestParam("id") Long orderId,Model model) {
-	Order order = orderService.findOrderById(orderId);
-	List<CartItem> CartItemList = order.getCartItemList();
-    User user = order.getUser();
-    
-    model.addAttribute("order", order);
-    model.addAttribute("CartItemList", CartItemList);
+	@GetMapping("/orderDetail")
+	public String OrderDetails(@RequestParam("id") Long orderId, Model model) {
+		Order order = orderService.findOrderById(orderId);
+		List<CartItem> CartItemList = order.getCartItemList();
+		User user = order.getUser();
 
-    model.addAttribute("user", user);
+		System.out.println(CartItemList.size() == 1);
+		System.out.println(
+				CartItemList.get(0).getProduct().getProductType().getProductTypeName() + "  " + "3D Keychains");
+		if (CartItemList.size() == 1 && CartItemList.get(0).getProduct().isAdminStatus() == false
+				&& order.getTackingId() == null) {
+			System.out.println("gggggggggggggggggggggggg");
+			model.addAttribute("keychain", true);
+		}
 
-	return "orderDetails";
-	
-}
+		model.addAttribute("order", order);
+		model.addAttribute("userPayment", order.getUserPayment());
 
+		model.addAttribute("CartItemList", CartItemList);
 
-@GetMapping("/orderInvoiceByCategory")
-public String getOrderInvoiceByCategory(@RequestParam("catName") String catName, Model model) {
+		model.addAttribute("user", user);
 
-	List<Order> catOrderList = new ArrayList<>();
+		return "orderDetails";
 
-	List<Order> orderList = orderService.allOrder();
+	}
 
-	for (Order order : orderList) {
+	@GetMapping("/orderInvoiceByCategory")
+	public String getOrderInvoiceByCategory(@RequestParam("catName") String catName, Model model) {
 
-		List<CartItem> cartItemList = order.getCartItemList();
+		List<Order> catOrderList = new ArrayList<>();
 
-		for (CartItem cartItem : cartItemList) {
-			String categoryName = cartItem.getProduct().getProductType().getProductTypeName();
+		List<Order> orderList = orderService.allOrder();
 
-			System.out.println("OrderId  :  " + order.getId());
+		for (Order order : orderList) {
 
-			System.out.println(categoryName + "==" + catName);
+			List<CartItem> cartItemList = order.getCartItemList();
 
-			if (cartItem.getProduct().getProductType().getProductTypeName().equals(catName)) {
-				System.out.println("Inside.....");
-				System.out.println();
-				catOrderList.add(order);
-				System.out.println(catOrderList.size());
+			for (CartItem cartItem : cartItemList) {
+				String categoryName = cartItem.getProduct().getProductType().getProductTypeName();
+
+				System.out.println("OrderId  :  " + order.getId());
+
+				System.out.println(categoryName + "==" + catName);
+
+				if (cartItem.getProduct().getProductType().getProductTypeName().equals(catName)) {
+					System.out.println("Inside.....");
+					System.out.println();
+					catOrderList.add(order);
+					System.out.println(catOrderList.size());
+				}
+
 			}
 
 		}
 
+		model.addAttribute("catOrderList", catOrderList);
+
+		return "multInvoice";
+
 	}
 
-	model.addAttribute("catOrderList", catOrderList);
-	
-	return "multInvoice";
+	@PostMapping("/saveTrackingID")
+	public String saveTrackingIdwithOrder(Model model, @RequestParam("orderId") Long orderId,
+			@RequestParam("trackingID") Long trackingID) {
+		System.out.println(orderId);
+		System.out.println(trackingID);
 
-}
+		Order order = orderService.findOrderById(orderId);
+
+		order.setTackingId(trackingID);
+
+		orderService.saveOrder(order);
+
+		model.addAttribute("trackingIdAdded", true);
+		model.addAttribute("CartItemList", order.getCartItemList());
+		model.addAttribute("order", order);
+		model.addAttribute("userPayment", order.getUserPayment());
+
+		return "orderDetails";
+	}
+
 }

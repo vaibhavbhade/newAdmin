@@ -56,7 +56,7 @@ public class ProductController {
 
 	
 @GetMapping("/addProduct")
-public String addProduct(Model model) {
+public String addProduct(Model model,@RequestParam(name = "added",required = false) boolean added ) {
 	
 		Product product=new Product();
 		
@@ -64,6 +64,9 @@ public String addProduct(Model model) {
 		
 		List<ProductType> categoryList= categoryService.findAll();
 		model.addAttribute("categoryList", categoryList);
+		if(added){
+		model.addAttribute("productAdded", true);
+		}
 		return "addproduct";
 		
 	}
@@ -74,25 +77,58 @@ public String categoryPage(Model model) {
 	model.addAttribute("productType", productType);
 	return "categoryPage";
 }
-
-@PostMapping("/addCategory")
-public String addCategoryPost(@ModelAttribute("productType") ProductType productType,Model model, Principal principal,ServletRequest request) {
+@RequestMapping(method = RequestMethod.POST, value="/addCategory",consumes = {"multipart/form-data"})
+public String addCategoryPost(@ModelAttribute("productType") ProductType productType,@RequestParam("catImage") MultipartFile imageMultipart ,@RequestParam("BannerImageStatus") boolean bannerImageStatus,@RequestParam("BannerImage") MultipartFile bannerImage ,Model model, Principal principal,ServletRequest request) {
 	
 	User user = userService.findByUsername(principal.getName());
+	
+	
     productType.setCretedBy(user.getFirstName());
-    categoryService.saveCategory(productType);
-    model.addAttribute("CategoryAdded", true);
-	return "categoryPage";
+    ProductType newproductType=categoryService.saveCategory(productType);
+    try {
+	byte[] bytes=imageMultipart.getBytes();
+	String name=productType.getId()+"_cat.png";
+	File file=new File("src/main/resources/static/image/product_cat/"+name);
+	FileOutputStream out=new FileOutputStream(file);
+	BufferedOutputStream strem = new BufferedOutputStream(out);
+    strem.write(bytes);
+	String path="image/product_cat/"+name;
+	newproductType.setCatImagePath(path);//set cat image path
+	strem.close();
+	if(bannerImageStatus) {
+		byte[] newbytes=bannerImage.getBytes();
+		String bannername=productType.getId()+"_banner.png";
+		File newFile=new File("src/main/resources/static/image/product_banner/"+bannername);
+		FileOutputStream fos=new FileOutputStream(newFile);
+		BufferedOutputStream strems = new BufferedOutputStream(fos);
+		strems.write(newbytes);
+		String bannerPath="image/product_banner/"+name;
+		newproductType.setBannerImagePath(bannerPath);;//set cat image path	
+		newproductType.setBannerImageStatus(bannerImageStatus);
+		strems.close();
+	}
+	categoryService.saveCategory(newproductType);
+	 model.addAttribute("CategoryAdded", true);
+		return "categoryPage";
+    }
+    catch (Exception e) {
+		// TODO: handle exception
+    	 model.addAttribute("error", true);
+ 		return "categoryPage";
+	}
+   
 	
 }
 
 @RequestMapping(method = RequestMethod.POST, value="/addProduct",consumes = {"multipart/form-data"})
-public String addProductPost(Principal principal,@ModelAttribute("product") Product product,@ModelAttribute("category") ProductType productType,ServletRequest request,@RequestParam("file") MultipartFile[] imageMultipart) throws IOException {
+public String addProductPost(Model model,Principal principal,@RequestParam(name = "status")boolean status,@ModelAttribute("product") Product product,@ModelAttribute("category") ProductType productType,ServletRequest request,@RequestParam("file") MultipartFile[] imageMultipart,@RequestParam("adminStatus") boolean adminStatus) throws IOException {
 	User user = userService.findByUsername(principal.getName());
-
+	System.out.println(adminStatus);
 	System.out.println(product.getOurPrice()+"*************************************************************************");
 	product.setProductType(productType);
 	product.setCretedBy(user.getFirstName());
+	product.setAdminStatus(adminStatus);
+	product.setStatus(status);
 	Product products=productService.save(product);
 
 	ProductImage productImage=new ProductImage();
@@ -132,8 +168,9 @@ for (MultipartFile multipartFile : imageMultipart) {
   
 }
 productImageService.saveProductImage(productImage);
+model.addAttribute("productAdded", true);
 
-	return "addproduct";
+	return "redirect:/addProduct?added=true";
 	
 	
 		
@@ -163,11 +200,12 @@ public String ProductConfigPage(Model model,@RequestParam("id") long productId) 
 
 
 @PostMapping("/addproductConfig")
-public String ProductConfigPage(Principal principal,Model model,@ModelAttribute("productConfig") ProductConfig productConfig,@ModelAttribute("product") Product product) {
+public String ProductConfigPage(Principal principal,Model model,@ModelAttribute("productConfig") ProductConfig productConfig,@ModelAttribute("product") Product product,@RequestParam("status") boolean status) {
 	User user = userService.findByUsername(principal.getName());
 
 	productConfig.setCretedBy(user.getFirstName());
 	productConfig.setProduct(product);
+	productConfig.setStatus(status);
 	productConfigService.saveProductConfig(productConfig);
 	model.addAttribute("ProductConfigAdded",true);
 	List<Product> productList=productService.findAll();
@@ -250,10 +288,12 @@ public String updateProduct(@RequestParam("id")Long id,Model model) {
 
 
 @PostMapping("/updateProduct")
-public String updateProductByPost(@ModelAttribute("product") Product product,Principal principal,Model model,@RequestParam("file") MultipartFile[] imageMultipart) {
+public String updateProductByPost(@ModelAttribute("product") Product product,@RequestParam(name = "adminStatus") boolean adminStatus,@RequestParam(name = "status")boolean status,Principal principal,Model model,@RequestParam("file") MultipartFile[] imageMultipart) {
 	User user = userService.findByUsername(principal.getName());
 
 	product.setModifiedBy(user.getFirstName());
+	product.setAdminStatus(adminStatus);
+	product.setStatus(status);
 	Product products=productService.save(product);
 	
 	int count=0;
@@ -303,13 +343,15 @@ return "redirect:/productInfo?id="+product.getId();
 
 
 @PostMapping("/updateProductConfig")
-public String updateProductConfigByPost(@ModelAttribute("productConfig") ProductConfig productConfig,Principal principal,Model model) {
+public String updateProductConfigByPost(@ModelAttribute("productConfig") ProductConfig productConfig,@RequestParam("status")boolean status,Principal principal,Model model) {
 	User user = userService.findByUsername(principal.getName());
 System.out.println(productConfig.getId());
 Product product=productConfig.getProduct();
 System.out.println(product.getId());
 	productConfig.setModifiedBy(user.getFirstName());
 	productConfig.setModifiedDate(new Date());
+	productConfig.setStatus(status);
+
 	productConfigService.saveProductConfig(productConfig);
 	model.addAttribute("UpdateSucess", true);
 	

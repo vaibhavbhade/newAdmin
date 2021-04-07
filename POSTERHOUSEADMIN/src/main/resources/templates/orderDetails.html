@@ -5,7 +5,9 @@
 
 <body>
 	<div th:replace="common/header :: navbar" />
-
+<div  th:if="${trackingIdAdded}" class="alert alert-success" role="alert">
+  <span>Tracking Id Updated</span>
+</div>
 	<!-- Start Banner Area -->
 
 	<div>
@@ -22,6 +24,8 @@
 					<th scope="col">Order Date</th>
 					<th scope="col">Order Number</th>
 					<th scope="col">Product Name</th>
+					<th scope="col">Tracking Id</th>
+					<th scope="col">qty</th>
 					<th scope="col">Opreation</th>
 				</tr>
 			</thead>
@@ -31,7 +35,11 @@
 					<td th:text="${order.orderDate}"></td>
 					<td th:text="${order.id}"></td>
 					<td th:text="${cartItem.product.productName}"></td>
-					<td></td>
+					<td   th:text="${order.tackingId}"></td>
+					
+				    <td th:text="${cartItem.qty}"></td>
+					
+					
 					<td><a th:href="@{/download(id=${order.id},cartId=${cartItem.id})}"
 						class="btn btn-info">Download Image</a></td>
 				</tr>
@@ -39,7 +47,19 @@
 
 			</tbody>
 		</table>
+		
+		<div th:if="${keychain}">
+		
+		<form th:action="@{/saveTrackingID}" method="POST" class="form-inline">
 
+  <div class="form-group mx-sm-3 mb-2">
+  <input  type="text" th:value="${order.id}" name="orderId">
+  &nbsp;
+    <input type="number" class="form-control" name="trackingID" id="trackingID" placeholder="Tracking Id">
+  </div>
+  <button type="submit" class="btn btn-primary mb-2">Save Tracking Number</button>
+</form>
+</div>
 	</section>
 
 
@@ -58,14 +78,14 @@ function myFunction() {
 	}
 	
 
-$(document).ready(function() {
+/* $(document).ready(function() {
 	$("#orderTable").DataTable({
 		  "lengthMenu": [ [5, 10, 25, -1], [5, 10, 25, "All"] ],
         "ordering": false,
 		stateSave: true
 	});
 });
-
+ */
 </script>
 </body>
 </html>

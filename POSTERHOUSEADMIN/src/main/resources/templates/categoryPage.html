@@ -5,9 +5,13 @@
 <body>
 	<div th:replace="common/header :: navbar" />
 	<div>
-	<span style="color: red;"class="alert alert-danger" th:if="${CategoryAdded}">category added successfully.</span>
+	<span style="color: green;"class="alert alert-danger" th:if="${CategoryAdded}">category added successfully.</span>
 	</div>
-	<form class="form-horizontal" th:action="@{/addCategory}" method="post">
+	
+	<div>
+	<span style="color: red;"class="alert alert-danger" th:if="${error}">Something Went Wrong.</span>
+	</div>
+	<form class="form-horizontal" th:action="@{/addCategory}" method="post" enctype="multipart/form-data">
 				<fieldset>
 					<legend class="center-block">
 						Category Data <span style="font-size: small"> * is a
@@ -45,7 +49,37 @@
 								placeholder="ProductType Discription" /> 
 						</div>
 					</div>
-
+					 <div class="form-group">
+						<label class="col-md-2 control-label" for="inStockNumber">Upload Category Image</label>
+						<div class="col-md-8">
+							<p ><img alt="Main Image preview" height="20%" width="20%" id="thumbnail3" /></p>
+						
+							<input  type="file"
+								name="catImage" class="form-control" id="extraImage3"
+								 /> 
+						</div>
+					</div>
+					
+							<div class="form-group">
+						<label class="col-md-2 control-label" for="status">Select BannerImage</label>
+						<div class="col-md-8">
+							<label><input value="true" type="radio" name="BannerImageStatus"
+								checked="checked" /> Yes </label> <label><input
+								value="false" type="radio" name="BannerImageStatus"  required="required"/>
+								No </label>
+						</div>
+					</div>
+ <div class="form-group">
+						<label class="col-md-2 control-label" for="inStockNumber">Upload Banner Image:</label>
+						<div class="col-md-8">
+							<p ><img alt="Main Image preview" height="20%" width="20%" id="thumbnail2" /></p>
+						
+							<input  type="file"
+								name="BannerImage" class="form-control" id="extraImage2"
+								 /> 
+						</div>
+					</div>
+					
 	<div class="form-group">
 						<div class="col-md-2"></div>
 						<div class="col-md-8">

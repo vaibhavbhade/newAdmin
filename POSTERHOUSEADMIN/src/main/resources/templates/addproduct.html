@@ -5,7 +5,10 @@
 
 <body>
 	<div th:replace="common/header :: navbar" />
-	
+	<div>
+	<span style="color: red;"class="alert alert-danger" th:if="${productAdded}">Product added successfully.</span>
+	</div>
+	<br>
 	<div class="container">
 <div class="row">
 <form class="form-horizontal" th:action="@{/addProduct}" method="post"
@@ -288,6 +291,26 @@
 						</div>
 					</div>
 					
+						<div class="form-group">
+						<label class="col-md-2 control-label" for="status">Status</label>
+						<div class="col-md-8">
+							<label><input value="true" type="radio" name="status"
+								checked="checked" /> enable </label> <label><input
+								value="false" type="radio" name=status  required="required"/>
+								disable </label> 
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="status">Delivery Status</label>
+						<div class="col-md-8">
+							<label><input value="true" type="radio" name="adminStatus"
+								checked="checked" /> delhivery-express </label> <label><input
+								value="false" type="radio" name="adminStatus"  required="required"/>
+								POSTERHOUSE </label> <span class="help-block">Whether the product is
+								deliver using Delhivary.com or POSTERHOUSE</span>
+						</div>
+					</div>
 					<div class="form-group">
 						<div class="col-md-2"></div>
 						<div class="col-md-8">
