@@ -117,7 +117,7 @@
                                 Invoice : <span th:text="${'#PosterHouse'+order.id}"></span><br>
                                 Order No : <span th:text="${'#PosterHouse'+order.id}"></span><br>
                                 Order Date: <span th:text="${order.orderDate}"></span><br>
-                                Invoice Date:<span th:text="${date}"></span>
+                                Invoice Date:<span th:text="${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm')}"></span>
                             </td>
                         </tr>
                     </table>
@@ -185,7 +185,7 @@
             <tr class="total">
             <td></td>
             <td style="text-align:center"></td>
-            <td>Shipping rate Rs.50</td>
+            <td>FREE</td>
   </tr>
             <tr class="total">
                 <td></td>
@@ -193,9 +193,14 @@
                 
                
             </tr>
+            
         </table>
-        <button  class="btn btn-primary" onclick="window.print()">Print this page</button>
+        <hr>
+<!--         <button  class="btn btn-primary" onclick="window.print()">Print this page</button>
+ -->         <br><br><br><br><br><br> <br><br><br><br><br><br> <br><br><br><br>
     </div>
+    
+   
 
 </body>
 </html>

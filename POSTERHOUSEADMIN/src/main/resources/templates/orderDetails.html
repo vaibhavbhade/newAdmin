@@ -24,6 +24,8 @@
 					<th scope="col">Order Date</th>
 					<th scope="col">Order Number</th>
 					<th scope="col">Product Name</th>
+					<th scope="col">Product Config-Name</th>
+					<th scope="col">Product Size</th>
 					<th scope="col">Tracking Id</th>
 					<th scope="col">qty</th>
 					<th scope="col">Opreation</th>
@@ -35,10 +37,12 @@
 					<td th:text="${order.orderDate}"></td>
 					<td th:text="${order.id}"></td>
 					<td th:text="${cartItem.product.productName}"></td>
+					<td th:text="${cartItem.productConfig.productConfigName}"></td>
+			        <td th:text="${cartItem.productConfig.size}"></td>
 					<td   th:text="${order.tackingId}"></td>
 				    <td th:text="${cartItem.qty}"></td>
-					<th:block  th:each="i: ${#numbers.sequence(1,cartItem.qty)}">
-					<td ><a th:href="@{/download(id=${order.id},cartId=${cartItem.id},count=${i})}"
+					<th:block  th:each="cartItemToImage: ${cartItem.cartItemToImage}">
+					<td ><a th:href="@{/download(id=${order.id},cartId=${cartItem.id},imageId=${cartItemToImage.id})}"
 						class="btn btn-info">Download Image <span th:text="${i}"></span></a></td>
 						
 						</th:block>

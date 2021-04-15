@@ -13,6 +13,7 @@ import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import com.swiftdroid.posterhouse.admin.model.CartItem;
 import com.swiftdroid.posterhouse.admin.model.Order;
 
 public class OrderExcelExporter {
@@ -42,14 +43,33 @@ public class OrderExcelExporter {
 	        createCell(row, 1, "Order Date", style);       
 	        createCell(row, 2, "Final Price", style);    
 	        createCell(row, 3, "order status", style);
-	        createCell(row, 4, "Billing Address", style);
-	        createCell(row, 5, "Shippng Address", style);
-	        createCell(row, 6, "User name", style);
-	        createCell(row, 7, "tracking ID", style);
-	        createCell(row, 8, " User Payment Details", style);
-	        createCell(row, 9, " User email", style);
-	        createCell(row, 10, " User phone no", style);
-	        createCell(row, 11, " CartItem ", style);
+	        createCell(row, 4, "Shipping Address Name", style);
+	        createCell(row, 5, "Shipping Address Street1", style);
+	        createCell(row, 6, "Shipping Address Street2", style);
+	        createCell(row, 7, "Shipping Address City", style);
+	        createCell(row, 8, " Shipping Address State", style);
+	        createCell(row, 9, " Shipping Address Zipcode", style);
+	        createCell(row, 10, " phone", style);
+	        
+	        createCell(row, 11, " product name ", style);
+	        createCell(row, 12, " product qty ", style);
+	        createCell(row, 13, " product Config ", style);
+	        createCell(row, 14, " product size ", style);
+	        createCell(row, 15, " product Category", style);
+	      
+	        
+	        createCell(row, 16, "amount_paid", style);
+	        createCell(row, 17, " TXNID", style);
+	        createCell(row, 18, "gatewayName", style);
+	        createCell(row, 19, "paymentMode", style);
+	        createCell(row, 20, "transectionDate", style);
+	        createCell(row, 21, "status", style);
+
+	        createCell(row, 22, "username", style);
+	        createCell(row, 23, "tracking id", style);
+	        createCell(row, 24, "email", style);
+	        createCell(row, 25, "phone no", style);
+
 	         
 	    }
 	     
@@ -84,14 +104,51 @@ public class OrderExcelExporter {
 	            createCell(row, columnCount++,order.getCreatedDate().toString() , style);
 	            createCell(row, columnCount++, order.getFinalPrice().toString(), style);
 	            createCell(row, columnCount++, order.getOrderStatus(), style);
-	            createCell(row, columnCount++, order.getBillingAddress().toString(), style);
-	            createCell(row, columnCount++, order.getShippingAddress().toString(), style);
+	            createCell(row, columnCount++, order.getShippingAddress().getShippingAddressName(), style);
+	            createCell(row, columnCount++, order.getShippingAddress().getShippingAddressStreet1(), style);
+	            createCell(row, columnCount++, order.getShippingAddress().getShippingAddressStreet2(), style);
+	            createCell(row, columnCount++, order.getShippingAddress().getShippingAddressCity(), style);
+	            createCell(row, columnCount++, order.getShippingAddress().getShippingAddressState(), style);
+	            createCell(row, columnCount++, order.getShippingAddress().getShippingAddressZipcode(), style);
+	            createCell(row, columnCount++, order.getShippingAddress().getPhone(), style);
+	            
+	            List<CartItem> cartItemList = order.getCartItemList();
+	            
+	            
+	            String product="";
+	            String qty="";
+	            String productConfig="";
+	            String size="";
+	            String cat="";
+	            for (CartItem cartItem : cartItemList) {
+	            	product=product+cartItem.getProduct().getProductName()+"\n";
+	            	qty=qty+ cartItem.getQty()+"\n";
+                   productConfig=productConfig+cartItem.getProductConfig().getProductConfigName()+"\n";
+                   size=size+cartItem.getProductConfig().getSize()+"\n";
+                   cat=cat+cartItem.getProduct().getProductType().getProductTypeName()+"\n";
+	            }
+	            
+	            
+	            
+	            createCell(row, columnCount++, product, style);
+	            createCell(row, columnCount++, qty, style);
+	            createCell(row, columnCount++,productConfig, style);
+	            createCell(row, columnCount++, size, style);
+	            createCell(row, columnCount++,cat, style);
+	            
+	            createCell(row, columnCount++, order.getUserPayment().getAmount_paid(), style);
+	            createCell(row, columnCount++, order.getUserPayment().getTXNID(), style);
+	            createCell(row, columnCount++, order.getUserPayment().getGatewayName(), style);
+	            createCell(row, columnCount++, order.getUserPayment().getPaymentMode(), style);
+	            createCell(row, columnCount++, order.getUserPayment().getTransectionDate(), style);
+	            createCell(row, columnCount++, order.getUserPayment().getStatus(), style);
+
+	            
+	            
 	            createCell(row, columnCount++, order.getUser().getUsername(), style);
 	            createCell(row, columnCount++, order.getTackingId(), style);
-	            createCell(row, columnCount++, order.getUserPayment().toString(), style);
 	            createCell(row, columnCount++, order.getUser().getEmail(), style);
 	            createCell(row, columnCount++, order.getUser().getPhone(), style);
-	            createCell(row, columnCount++, order.getCartItemList().toString(), style);
 	            
 	        }
 	    }

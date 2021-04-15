@@ -42,7 +42,6 @@ public class UserExcelExporter {
 	        createCell(row, 1, "E-mail", style);       
 	        createCell(row, 2, "Full Name", style);    
 	        createCell(row, 3, "phone", style);
-	        createCell(row, 4, "Enabled", style);
 	         
 	    }
 	     

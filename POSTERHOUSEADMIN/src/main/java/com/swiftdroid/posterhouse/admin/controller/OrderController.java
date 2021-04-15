@@ -23,10 +23,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.swiftdroid.posterhouse.admin.model.CartItem;
+import com.swiftdroid.posterhouse.admin.model.CartItemToImage;
 import com.swiftdroid.posterhouse.admin.model.Order;
 import com.swiftdroid.posterhouse.admin.model.Product;
 import com.swiftdroid.posterhouse.admin.model.User;
 import com.swiftdroid.posterhouse.admin.service.CartItemService;
+import com.swiftdroid.posterhouse.admin.service.CartItemToImageService;
 import com.swiftdroid.posterhouse.admin.service.OrderService;
 
 @Controller
@@ -37,6 +39,9 @@ public class OrderController {
 
 	@Autowired
 	private CartItemService cartItemService;
+	
+	@Autowired
+	private CartItemToImageService cartItemToImageService;
 
 	@RequestMapping("/viewOrderDetails")
 	public String viewOrderDetails(Model model, @RequestParam(name = "error", required = false) boolean error,
@@ -106,7 +111,7 @@ public class OrderController {
 
 	@RequestMapping(value = "/download", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<Object> downloadFile(@RequestParam("id") Long orderId, @RequestParam("cartId") Long cartId,@RequestParam("count") Long count)
+	public ResponseEntity<Object> downloadFile(@RequestParam("id") Long orderId, @RequestParam("cartId") Long cartId,@RequestParam("imageId") Long imageId)
 			throws IOException {
 
 		Order order = orderService.findOrderById(orderId);
@@ -115,15 +120,13 @@ public class OrderController {
 System.out.println("order date :: "+order.getOrderDate());
 		User user = order.getUser();
 
-		for (CartItem cartItem : CartItemList) {
-
-			if (cartItem.equals(userCartItem)) {
-
-				Product product = cartItem.getProduct();
+		
+		CartItemToImage cartItemToImage = cartItemToImageService.findCartItemToImageByCartItemAndId(userCartItem, imageId);
+				Product product = userCartItem.getProduct();
 				// 223_670_784_1_20210407205530949 
 					
 				
-				String fileName = user.getId() + "_" + product.getId() + "_" + order.getId() + "_"+count+"_"+order.getDownloadpath()+".png";
+				String fileName =cartItemToImage.getImgPath();
 				// String FileName = websitePath + "/img/user/userproductImage/" + fileName;
 				String photoName = "C:\\java\\POSTERHOUSE\\src\\main\\resources\\static\\img\\user\\userproductImage\\"
 						+ fileName;
@@ -132,7 +135,7 @@ System.out.println("order date :: "+order.getOrderDate());
 				InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
 
 				HttpHeaders headers = new HttpHeaders();//223_670_764_1_20210407173509000
-				headers.add("Content-Disposition", String.format("attachment; filename=\"%s\"", "image_"+count+"_"+user.getFirstName()
+				headers.add("Content-Disposition", String.format("attachment; filename=\"%s\"", "image_"+cartItemToImage.getId()+"_"+user.getFirstName()
 						+ "_" + product.getProductName() + "_" + order.getOrderDate() + "_" + file.getName()));
 				headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
 				headers.add("Pragma", "no-cache");
@@ -144,10 +147,9 @@ System.out.println("order date :: "+order.getOrderDate());
 					
 
 				return responseEntity;
-			}
+			
 
-		}
-		return null;
+		
 
 	}
 

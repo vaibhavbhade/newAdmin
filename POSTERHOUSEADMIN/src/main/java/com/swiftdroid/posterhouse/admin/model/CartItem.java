@@ -36,6 +36,9 @@ public class CartItem {
 	@JsonIgnore
 	private List<ProductToCartItem> ProductToCartItemList;
 	
+	@OneToMany(mappedBy = "cartItem")
+	private List<CartItemToImage> cartItemToImage; 
+	
 	@ManyToOne
 	@JoinColumn(name="shopping_cart_id")
 	private ShoppingCart shoppingCart;
@@ -139,6 +142,18 @@ public class CartItem {
 		return "CartItem [id=" + id + ", qty=" + qty + ", subtotal=" + subtotal + ", size=" + size + ", Product="
 				+ Product + ", productConfig=" + productConfig + ", ProductToCartItemList=" + ProductToCartItemList
 				+ ", shoppingCart=" + shoppingCart + ", order=" + order + "]";
+	}
+
+
+
+	public List<CartItemToImage> getCartItemToImage() {
+		return cartItemToImage;
+	}
+
+
+
+	public void setCartItemToImage(List<CartItemToImage> cartItemToImage) {
+		cartItemToImage = cartItemToImage;
 	}
 	
 	
