@@ -22,7 +22,7 @@
 			<div class="col-xs-3">
 				<div class="panel panel-default">
 				<div class="panel-body">
-					<img th:src="@{${productImage.mainImageUrl}}" class="img-responsive center-block" />
+					<img th:src="@{#{showAdminImgPath}+''+${productImage.mainImageUrl}}" class="img-responsive center-block" />
 				</div>
 				</div>
 			</div>
@@ -33,8 +33,8 @@
 						<p><strong>Product Code: </strong><span th:text="${product.productCode}"></span></p>
 						<p><strong>Product Description</strong><span th:text="${product.productDescription}"></span></p>
 						<p><strong>Created Date: </strong><span th:text="${product.cretedDate}"></span></p>
-						<p><strong>No Of Faces: </strong><span th:text="${product.noOfFaces}"></span></p>
-	                    <p><strong>Maximum Quantity: </strong><span style="color: red;" th:text="${product.maximumQuantity}"></span></p>
+<!-- 						<p><strong>No Of Faces: </strong><span th:text="${product.noOfFaces}"></span></p>
+ -->	                    <p><strong>Maximum Quantity: </strong><span style="color: red;" th:text="${product.maximumQuantity}"></span></p>
 						<p><strong>Our Price: </strong><span th:text="${product.ourPrice}"></span></p>
 					    <p><strong>Category Name: </strong><span th:text="${categoryName}"></span></p>
 						

@@ -7,7 +7,7 @@
 	<div th:replace="common/header :: navbar" />
 	
 	<div class="container">
-	
+	<h3>Product List</h3>
 	
 <div>
 <span style="color: red;"class="alert alert-success" th:if="${ProductConfigAdded}">ProductConfig added successfully.</span>
@@ -21,9 +21,10 @@
 						<th>Product code</th>
 						<th>Product Description</th>
  						
-						<th>No Of Faces</th>
 						<th>Intial Price</th>
 						<th>Maximum Quantity</th>
+												<th>Status</th>
+						
 						<th>Operation</th>
 					</tr>
 				</thead>
@@ -36,15 +37,15 @@
 						<td><a th:href="@{/productInfo(id=${product.id})}"><span th:text="${product.productName}"></span></a></td>
 						<td th:text="${product.productCode}"></td>
 						<td th:text="${product.productDescription}"></td>
-						<td th:text="${product.noOfFaces}"></td>
 						<td th:text="${product.ourPrice}"></td>
 						<td th:text="${product.maximumQuantity}"></td>
+						<td  th:if="${product.status}==true">Active</td>
+						<td style="color: red;" th:if="${product.status}==false">Inactive</td>
 						<td>
 							<input hidden="hidden" name="id" th:value="${product.id}" />
-							<button th:id="'oneBook-'+${product.id}" class="btn btn-danger btn-xs delete-book" type="submit" value="delete" >
-							<span class="fa fa-times"></span>Delete</button>
-							<a th:href="@{/productConfig(id=${product.id})}" class="btn btn-primary"> Config-Product</a><br><br>
-							<a th:href="@{/productConfigList(id=${product.id})}" class="btn btn-success"> Config-Product List</a>
+						
+							<a th:href="@{/productConfig(id=${product.id})}" class="btn btn-primary form-group"> Config-Product</a><br><br>
+							<a th:href="@{/productConfigList(id=${product.id})}" class="btn btn-success form-group"> Config-Product List</a>
 							
 						</td>
 					</tr>

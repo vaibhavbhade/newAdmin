@@ -41,4 +41,12 @@ public class CategoryServiceImpl implements CategoryService {
 		return (List<ProductType>) categoryRepository.findAll();
 	}
 
+
+
+	@Override
+	public ProductType findByProductTypeCode(String productCode) {
+		// TODO Auto-generated method stub
+		return categoryRepository.findByProductTypeCode(productCode);
+	}
+
 }

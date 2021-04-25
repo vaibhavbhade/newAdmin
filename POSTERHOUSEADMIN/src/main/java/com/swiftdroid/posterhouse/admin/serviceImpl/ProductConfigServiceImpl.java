@@ -26,4 +26,10 @@ public class ProductConfigServiceImpl implements ProductConfigService{
 		return productConfigRepository.findById(id).orElse(null);
 	}
 
+	@Override
+	public ProductConfig findByProductConfigCode(String productConfigCode) {
+		// TODO Auto-generated method stub
+		return productConfigRepository.findByProductConfigCode(productConfigCode);
+	}
+
 }

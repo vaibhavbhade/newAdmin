@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -26,9 +27,11 @@ import com.swiftdroid.posterhouse.admin.model.CartItem;
 import com.swiftdroid.posterhouse.admin.model.CartItemToImage;
 import com.swiftdroid.posterhouse.admin.model.Order;
 import com.swiftdroid.posterhouse.admin.model.Product;
+import com.swiftdroid.posterhouse.admin.model.ProductType;
 import com.swiftdroid.posterhouse.admin.model.User;
 import com.swiftdroid.posterhouse.admin.service.CartItemService;
 import com.swiftdroid.posterhouse.admin.service.CartItemToImageService;
+import com.swiftdroid.posterhouse.admin.service.CategoryService;
 import com.swiftdroid.posterhouse.admin.service.OrderService;
 
 @Controller
@@ -42,6 +45,9 @@ public class OrderController {
 	
 	@Autowired
 	private CartItemToImageService cartItemToImageService;
+	
+	@Autowired
+	private Environment env;
 
 	@RequestMapping("/viewOrderDetails")
 	public String viewOrderDetails(Model model, @RequestParam(name = "error", required = false) boolean error,
@@ -127,9 +133,12 @@ System.out.println("order date :: "+order.getOrderDate());
 					
 				
 				String fileName =cartItemToImage.getImgPath();
+			//	String path=env.getProperty("imgShowPath");
+				String path=env.getProperty("downloadPath");
 				// String FileName = websitePath + "/img/user/userproductImage/" + fileName;
-				String photoName = "C:\\java\\POSTERHOUSE\\src\\main\\resources\\static\\img\\user\\userproductImage\\"
-						+ fileName;
+			//	String photoName = "C:\\java\\POSTERHOUSE\\src\\main\\resources\\static\\img\\user\\userproductImage\\"
+				//		+ fileName;
+				String photoName = path+ fileName;
 
 				File file = new File(photoName);
 				InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
@@ -234,5 +243,7 @@ System.out.println("order date :: "+order.getOrderDate());
 
 		return "orderDetails";
 	}
+
+	
 
 }

@@ -10,6 +10,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -80,6 +81,7 @@ public class HomeController {
 		return "home";
 	}
 	
+	
     @RequestMapping("/login")
 	public String login() {
     	Authentication	authentication=SecurityContextHolder.getContext().getAuthentication();
@@ -123,12 +125,17 @@ public class HomeController {
         String currentDateTime = dateFormatter.format(new Date());
          
         String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=users_" + currentDateTime + ".xlsx";
+        String headerValue = "attachment; filename=Orders_" + currentDateTime + ".xlsx";
         response.setHeader(headerKey, headerValue);
          
        List<Order> listOrder=orderService.allOrder();
-         
-       OrderExcelExporter orderExcelExporter = new OrderExcelExporter(listOrder);
+       List<Order> finalOrder=new ArrayList<Order>();
+		
+		for (Order order : listOrder) {
+			if(order.getUserPayment() != null)
+				finalOrder.add(order);
+		}
+       OrderExcelExporter orderExcelExporter = new OrderExcelExporter(finalOrder);
          
        orderExcelExporter.export(response);    
     } 

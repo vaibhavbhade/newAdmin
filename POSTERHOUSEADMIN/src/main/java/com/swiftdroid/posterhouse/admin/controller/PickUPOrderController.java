@@ -74,9 +74,12 @@ public class PickUPOrderController {
 @ResponseBody
 	@GetMapping("/Delhivery/Packing-Slip")
 	public ResponseEntity<Object> genratePackingSlip(@RequestParam("Waybill") Long Waybill,@RequestParam("orderId")Long orderId) throws JSONException, FileNotFoundException {
-		String url="https://staging-express.delhivery.com/api/p/packing_slip?wbns="+Waybill;
+	System.out.println(Waybill);	
+	String url="https://staging-express.delhivery.com/api/p/packing_slip?wbns="+Waybill;
 		Order order=orderService.findOrderById(orderId);
-		
+		// https://staging-express.delhivery.com/api/p/packing_slip?wbns=4957710002472
+
+
 		File file=new File("src/main/resources/static/image/"+order.getId()+"_slip.png");
 
 		if (file.exists()) {
@@ -105,6 +108,8 @@ public class PickUPOrderController {
 
 		ResponseEntity<String> jsonString = restTemplate.exchange(url,HttpMethod.GET, entity, String.class);
 try {
+	
+	System.out.println("Json = "+jsonString.getBody());
 		JSONObject obj = new JSONObject(jsonString.getBody());
 		
 		

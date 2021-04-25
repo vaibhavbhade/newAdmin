@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar" ></div>
+	<div class="container">
+	
+	<div>
+	<div style="color: green;"class="alert alert-danger" th:if="${CategoryAdded}">category added successfully.</div>
+	</div>
+	
+	<div>
+	<div style="color: red;"class="alert alert-danger" th:if="${error}">Product-type Code is Already Exist.</div>
+	</div>
+	<br>
+	<form class="form-horizontal" th:action="@{/updateCategory}" method="post" enctype="multipart/form-data">
+				<fieldset>
+					<legend class="center-block">
+						Category Data <span style="font-size: small"> * is a
+							required field</span>
+					</legend>
+
+<input hidden="hidden" name="id" id="id" th:value="${productType.id}" th:field="*{productType.id}"/>
+
+					<!-- productCode -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="title">* ProductType Code</label>
+
+						<div class="col-md-8">
+							<input type="text" name="productTypeCode" class="form-control" id="productCode"
+								th:value="${productType.productTypeCode}" required="required" placeholder="Title"  />
+						</div>
+					</div>
+
+					<!-- productName -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="author">*
+							ProductType Name </label>
+						<div class="col-md-8">
+							<input type="text" name="productTypeName" class="form-control" id="productTypeName"
+								th:value="${productType.productTypeName}" required="required"
+								placeholder="productType Name" /> 
+						</div>
+					</div>
+
+					<!-- productDescription -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="publisher">* ProductType Description</label>
+						<div class="col-md-8">
+							<input type="text" name="productTypeDiscription" class="form-control"
+								id="productTypeDiscription" th:value="${productType.productTypeDiscription}"
+								placeholder="ProductType Discription" required="required" /> 
+						</div>
+					</div>
+						<div class="form-group">
+						<label class="col-md-2 control-label" for="status">* Select Product-Type Status</label>
+						<div class="col-md-8">
+							<label><input value="true"    type="radio" name="status"
+									th:checked="${productType.status}==true"	/> Yes </label> <label><input
+						  value="false" type="radio" th:checked="${productType.status}==false"  name="status"  required="required"/>
+								No </label>
+						</div>
+					</div>
+					 <div class="form-group">
+						<label class="col-md-2 control-label" for="inStockNumber">* Upload Category Image</label>
+						<div class="col-md-8">
+							<p ><img alt="Main Image preview" height="20%" width="20%" id="thumbnail3" required="required" /></p>
+						
+							<input  type="file"
+								name="catImage" class="form-control" id="extraImage3"
+								required="required" /> 
+						</div>
+					</div>
+					
+							<div class="form-group">
+						<label class="col-md-2 control-label" for="status">* Select BannerImage</label>
+						<div class="col-md-8">
+							<label><input value="true" onclick="ShowHideDiv(this.value)"   type="radio" name="BannerImageStatus"
+								/> Yes </label> <label><input
+								checked="checked"  value="false" type="radio" onclick="ShowHideDiv(this.value)" name="BannerImageStatus"  required="required"/>
+								No </label>
+						</div>
+					</div>
+ <div class="form-group" id="dvPassport" style="display: none;">
+						<label class="col-md-2 control-label" for="inStockNumber">Upload Banner Image:</label>
+						<div class="col-md-8">
+							<p ><img alt="Main Image preview" height="20%" width="20%" id="thumbnail2" /></p>
+						
+							<input  type="file"
+								name="BannerImage" class="form-control" id="extraImage2"
+								 /> 
+						</div>
+					</div>
+					
+	<div class="form-group">
+						<div class="col-md-2"></div>
+						<div class="col-md-8">
+							<button type="submit" class="btn btn-success">Update Category</button>
+						</div>
+					</div>
+	</fieldset>
+	</form>
+	
+	</div>
+	
+	
+	<div th:replace="common/header :: body-bottom-scripts" />
+	<script type="text/javascript">
+    function ShowHideDiv(chkPassport) {
+
+    	if(chkPassport=='true'){
+    		  $("#dvPassport").show();
+
+    	}else{
+  		  $("#dvPassport").hide();
+
+    	}
+    }
+</script>
+
+</body>
+</html>

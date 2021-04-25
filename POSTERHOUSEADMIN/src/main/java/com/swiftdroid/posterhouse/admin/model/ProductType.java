@@ -36,7 +36,7 @@ public class ProductType {
 	private String productTypeDiscription;
 	
 	@Column(name = "IA")
-	private boolean isActive=true;
+	private boolean status;
 	
 	@Column(name = "CD")
 	@CreationTimestamp
@@ -108,13 +108,18 @@ public class ProductType {
 	}
 
 
-	public boolean isActive() {
-		return isActive;
+	
+
+
+	
+
+	public boolean isStatus() {
+		return status;
 	}
 
 
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 

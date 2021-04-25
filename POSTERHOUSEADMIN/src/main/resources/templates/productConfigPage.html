@@ -26,7 +26,7 @@
 					
 <!-- 				ProductConfigCode
  -->					<div class="form-group">
-						<label class="col-md-2 control-label" for="ProductConfigCode">Product Config Code</label>
+						<label class="col-md-2 control-label" for="ProductConfigCode">* Product Config Code</label>
                           <div class="col-md-8">
 							<input type="text" name="ProductConfigCode" class="form-control"
 								id="ProductConfigCode" th:value="${productConfig.productConfigCode}"
@@ -36,7 +36,7 @@
 
 					<!-- productConfigName -->
 					<div class="form-group">
-						<label class="col-md-2 control-label" for="productConfigName">Product Config-Name</label>
+						<label class="col-md-2 control-label" for="productConfigName">* Product Config-Name</label>
 						<div class="col-md-8">
 							<input type="text" name="productConfigName" class="form-control"
 								id="productConfigName" th:value="${productConfig.productConfigName}"
@@ -49,7 +49,7 @@
 
 					<!-- WIDTH -->
 					<div class="form-group">
-						<label class="col-md-2 control-label" for="WIDTH">WIDTH
+						<label class="col-md-2 control-label" for="WIDTH">* WIDTH
 							</label>
 						<div class="col-md-8">
 							<div class="input-group">
@@ -63,7 +63,7 @@
 
 					<!-- HEIGHT -->
 					<div class="form-group">
-						<label class="col-md-2 control-label" for="HEIGHT">HEIGHT</label>
+						<label class="col-md-2 control-label" for="HEIGHT">* HEIGHT</label>
 						<div class="col-md-8">
 							<div class="input-group">
 								<span class="input-group-addon">MM</span> <input
@@ -76,7 +76,7 @@
 
 					<!-- DEPTH -->
 					<div class="form-group">
-						<label class="col-md-2 control-label" for="DEPTH">DEPTH</label>
+						<label class="col-md-2 control-label" for="DEPTH">* DEPTH</label>
 						<div class="col-md-8">
 							<div class="input-group"><span class="input-group-addon">MM</span>
 								 <input
@@ -89,10 +89,10 @@
 					
 										<!-- size -->
 					<div class="form-group">
-						<label class="col-md-2 control-label" for="size">Size</label>
+						<label class="col-md-2 control-label" for="size">* Configuration Name</label>
 						<div class="col-md-8">
 							<div class="input-group">
-								<span class="input-group-addon"> M X M</span> <input
+								<input
 									th:value="${productConfig.size}" type="text" name="size" 
 									class="form-control" id="size" placeholder="size" required="required" />
 							</div>
@@ -101,7 +101,7 @@
 
 					<!-- weightOfProduct -->
 					<div class="form-group">
-						<label class="col-md-2 control-label" for="weightOfProduct">Weight Of Product</label>
+						<label class="col-md-2 control-label" for="weightOfProduct">* Weight Of Product</label>
 						<div class="col-md-8">
 							<input th:value="${productConfig.weightOfProduct}" type="number"
 								name="weightOfProduct" class="form-control" id="weightOfProduct"
@@ -111,11 +111,11 @@
 
 <!-- 					status of ProductConfig
  -->					<div class="form-group">
-						<label class="col-md-2 control-label" for="status">Status</label>
+						<label class="col-md-2 control-label" for="status">* Status</label>
 						<div class="col-md-8">
 							<label><input value="true" type="radio" name="status"
 								checked="checked" /> Active </label> <label><input
-								value="false" type="radio" name="isActive"  required="required"/>
+								value="false" type="radio" name="status"  required="required"/>
 								Inactive </label> <span class="help-block">Whether the product is
 								active or inactive</span>
 						</div>
@@ -124,7 +124,7 @@
 
 					<!-- productConfigDiscription -->
 										<div class="form-group">
-						<label class="col-md-2 control-label" for="productConfigDiscription">Product-Config Discription</label>
+						<label class="col-md-2 control-label" for="productConfigDiscription">* Product-Config Discription</label>
 						<div class="col-md-8">
 							<input  type="rext" name="productConfigDiscription" rows="5" class="form-control"
 								id="productConfigDiscription" th:value="${productConfig.productConfigDiscription}" placeholder="ProductConfig Discription" required="required"/>
@@ -134,7 +134,7 @@
 					
 					<!-- totalWeight -->
 					<div class="form-group">
-						<label class="col-md-2 control-label" for="totalWeight">Total Weight</label>
+						<label class="col-md-2 control-label" for="totalWeight">* Total Weight</label>
 						<div class="col-md-8">
 							<input th:value="${productConfig.totalWeight}" type="number"
 								name="totalWeight" class="form-control" id="totalWeight"
@@ -145,15 +145,15 @@
 					
 					<!-- pricePerQty -->
 					<div class="form-group">
-						<label class="col-md-2 control-label" for="pricePerQty">Price Per-Qty</label>
+						<label class="col-md-2 control-label" for="pricePerQty">* Price Per-Qty</label>
 						<div class="col-md-8">
 							<span class="input-group-addon">&#x20B9;</span><input th:value="${productConfig.pricePerQty}" type="number"
 								name="pricePerQty" class="form-control" id="pricePerQty"
 								placeholder="Price Per-Qty" required="required" />
 						</div>
 					</div>
-					
-					<!-- pricePerFace -->
+					<!-- 
+					<!-- pricePerFace
 					<div class="form-group">
 						<label class="col-md-2 control-label" for="pricePerFace">Price Per-Face</label>
 						<div class="col-md-8">
@@ -161,13 +161,13 @@
 								name="pricePerFace" class="form-control" id="pricePerFace"
 								placeholder="Price Per-Face" required="required" /> 
 						</div>
-					</div>
+					</div> -->
 					
 					
 					
 							<!-- durationToMake -->
 					<div class="form-group">
-						<label class="col-md-2 control-label" for="durationToMake">Duration To Make</label>
+						<label class="col-md-2 control-label" for="durationToMake">* Duration To Make</label>
 						<div class="col-md-8">
 							<input th:value="${productConfig.durationToMake}" type="number"
 								name="durationToMake" class="form-control" id="durationToMake"
@@ -175,8 +175,8 @@
 						</div>
 					</div>
 					
-					
-							<!-- availibility -->
+					<!-- 
+							availibility
 					<div class="form-group">
 						<label class="col-md-2 control-label" for="availibility">Availibility</label>
 						<div class="col-md-8">
@@ -185,7 +185,7 @@
 								placeholder="Availibility" required="required" /> 
 						</div>
 					</div>
-					
+					 -->
 
 <!-- 					upload image
 					<div class="form-group">

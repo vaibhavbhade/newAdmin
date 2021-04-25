@@ -6,8 +6,13 @@
 <body>
 	<div th:replace="common/header :: navbar" />
 	<div>
-	<span style="color: red;"class="alert alert-danger" th:if="${productAdded}">Product added successfully.</span>
+	<div style="color: red;"class="alert alert-danger" th:if="${productAdded}">Product added successfully.</div>
 	</div>
+	
+	<div>
+	<div style="color: red;"class="alert alert-danger" th:if="${error}">Product Code is Already Exist.Duplicate not allowed</div>
+	</div>
+	
 	<br>
 	<div class="container">
 <div class="row">
@@ -20,6 +25,19 @@
 							required field</span>
 					</legend>
 
+
+	<div class="form-group">
+						<label class="col-md-2 control-label" for="category">*
+							Category</label>
+						<div class="col-md-8">
+							<select  id="category" name="category"
+								class="form-control" required="required">
+								<option> select option </option>
+								<option  th:each=" category : ${categoryList}" th:value="${category.id}" th:text="${category.productTypeName}"></option>
+							</select> 
+						</div>
+					</div>
+					
 
 					<!-- productCode -->
 					<div class="form-group">
@@ -44,7 +62,7 @@
 
 					<!-- productDescription -->
 					<div class="form-group">
-						<label class="col-md-2 control-label" for="productDescription">Product Description</label>
+						<label class="col-md-2 control-label" for="productDescription"> * Product Description</label>
 						<div class="col-md-8">
 							<input type="text" name="productDescription" class="form-control"
 								id="productDescription" th:value="${product.productDescription}"
@@ -53,18 +71,18 @@
 					</div>
 
 					<!-- publication date -->
-					<div class="form-group">
+					<!-- <div class="form-group" style="">
 						<label class="col-md-2 control-label" for="noOfFaces">No Of Faces</label>
 						<div class="col-md-8">
 							<input type="text" class="form-control" id="noOfFaces"
 								name="noOfFaces" th:value="${product.noOfFaces}"
 								placeholder="No Of Faces" required="required"/> 
 						</div>
-					</div>
+					</div> -->
 
 					<!-- Maximum Quantity -->
 					<div class="form-group">
-						<label class="col-md-2 control-label" for="maximumQuantity">Maximum Quantity</label>
+						<label class="col-md-2 control-label" for="maximumQuantity"> * Maximum Quantity</label>
 						<div class="col-md-8">
 							<input type="text" class="form-control" id="maximumQuantity"
 								name="maximumQuantity" th:value="${product.maximumQuantity}"
@@ -74,7 +92,7 @@
 					
 										<!-- Maximum Quantity -->
 					<div class="form-group">
-						<label class="col-md-2 control-label" for="maximumQuantity">Intial Price of Product</label>
+						<label class="col-md-2 control-label" for="maximumQuantity"> * Intial Price of Product</label>
 						<div class="col-md-8">
 							<input type="text" class="form-control" id="ourPrice"
 								name="ourPrice" th:value="${product.ourPrice}"
@@ -84,16 +102,7 @@
 
 
 					<!-- category -->
-					<div class="form-group">
-						<label class="col-md-2 control-label" for="category">*
-							Category</label>
-						<div class="col-md-8">
-							<select  id="category" name="category"
-								class="form-control" required="required">
-								<option  th:each=" category : ${categoryList}" th:value="${category.id}" th:text="${category.productTypeName}"></option>
-							</select> 
-						</div>
-					</div>
+				
 
 <!-- 					<!-- productConfigCode
 					<div class="form-group">
@@ -248,7 +257,7 @@
  
  
  <div class="form-group">
-						<label class="col-md-2 control-label" for="inStockNumber">Upload Main Image </label>
+						<label class="col-md-2 control-label" for="inStockNumber"> * Upload Main Image </label>
 						<div class="col-md-8">
 						<p ><img alt="Main Image preview" height="20%" width="20%" id="thumbnail0" /></p>
 							<input  type="file"
@@ -259,7 +268,7 @@
 					
 					
  <div class="form-group">
-						<label class="col-md-2 control-label" for="inStockNumber">Upload Extra Image:1</label>
+						<label class="col-md-2 control-label" for="inStockNumber"> * Upload Extra Image:1</label>
 						<div class="col-md-8">
 						<p ><img alt="Main Image preview" height="20%" width="20%" id="thumbnail1" /></p>
 						
@@ -270,7 +279,7 @@
 					</div>
 					
  <div class="form-group">
-						<label class="col-md-2 control-label" for="inStockNumber">Upload Extra Image:2</label>
+						<label class="col-md-2 control-label" for="inStockNumber"> * Upload Extra Image:2</label>
 						<div class="col-md-8">
 								<p ><img alt="Main Image preview" height="20%" width="20%" id="thumbnail2" /></p>
 						
@@ -281,7 +290,7 @@
 					</div>
 					
  <div class="form-group">
-						<label class="col-md-2 control-label" for="inStockNumber">Upload Extra Image:3</label>
+						<label class="col-md-2 control-label" for="inStockNumber"> * Upload Extra Image:3</label>
 						<div class="col-md-8">
 							<p ><img alt="Main Image preview" height="20%" width="20%" id="thumbnail3" /></p>
 						
@@ -292,7 +301,7 @@
 					</div>
 					
 						<div class="form-group">
-						<label class="col-md-2 control-label" for="status">Status</label>
+						<label class="col-md-2 control-label" for="status">* Status</label>
 						<div class="col-md-8">
 							<label><input value="true" type="radio" name="status"
 								checked="checked" /> enable </label> <label><input
@@ -302,7 +311,7 @@
 					</div>
 					
 					<div class="form-group">
-						<label class="col-md-2 control-label" for="status">Delivery Status</label>
+						<label class="col-md-2 control-label" for="status"> * Delivery Status</label>
 						<div class="col-md-8">
 							<label><input value="true" type="radio" name="adminStatus"
 								checked="checked" /> delhivery-express </label> <label><input

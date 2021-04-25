@@ -57,7 +57,7 @@
 		<form th:action="@{/saveTrackingID}" method="POST" class="form-inline">
 
   <div class="form-group mx-sm-3 mb-2">
-  <input  type="text" th:value="${order.id}" name="orderId">
+  <input  type="text" th:value="${order.id}" name="orderId" hidden="hidden">
   &nbsp;
     <input type="number" class="form-control" name="trackingID" id="trackingID" placeholder="Tracking Id">
   </div>

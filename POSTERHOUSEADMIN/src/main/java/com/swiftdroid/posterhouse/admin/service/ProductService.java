@@ -12,5 +12,6 @@ public interface ProductService {
 	public Product findOneBook(Long id);
 	public Product updateBook(Long id);
 	public Product saveProductWithcategory(Product product,ProductType productType);
+	Product findByProductCode(String productCode);
 
 }

@@ -42,33 +42,33 @@ public class OrderExcelExporter {
 	        createCell(row, 0, "Order Id", style);      
 	        createCell(row, 1, "Order Date", style);       
 	        createCell(row, 2, "Final Price", style);    
-	        createCell(row, 3, "order status", style);
+	        createCell(row, 3, "Order status", style);
 	        createCell(row, 4, "Shipping Address Name", style);
 	        createCell(row, 5, "Shipping Address Street1", style);
 	        createCell(row, 6, "Shipping Address Street2", style);
 	        createCell(row, 7, "Shipping Address City", style);
-	        createCell(row, 8, " Shipping Address State", style);
-	        createCell(row, 9, " Shipping Address Zipcode", style);
-	        createCell(row, 10, " phone", style);
+	        createCell(row, 8, "Shipping Address State", style);
+	        createCell(row, 9, "Shipping Address Zipcode", style);
+	        createCell(row, 10, "Phone", style);
 	        
-	        createCell(row, 11, " product name ", style);
-	        createCell(row, 12, " product qty ", style);
-	        createCell(row, 13, " product Config ", style);
-	        createCell(row, 14, " product size ", style);
-	        createCell(row, 15, " product Category", style);
+	        createCell(row, 11, "Product Name", style);
+	        createCell(row, 12, "Product Qty", style);
+	        createCell(row, 13, "Product Config", style);
+	        createCell(row, 14, "Product size", style);
+	        createCell(row, 15, "Product Category", style);
 	      
 	        
-	        createCell(row, 16, "amount_paid", style);
-	        createCell(row, 17, " TXNID", style);
-	        createCell(row, 18, "gatewayName", style);
-	        createCell(row, 19, "paymentMode", style);
-	        createCell(row, 20, "transectionDate", style);
-	        createCell(row, 21, "status", style);
+	        createCell(row, 16, "Amount Paid", style);
+	        createCell(row, 17, "Transaction Id", style);
+	        createCell(row, 18, "Gateway Name", style);
+	        createCell(row, 19, "Payment Mode", style);
+	        createCell(row, 20, "Transaction Date", style);
+	        createCell(row, 21, "Status", style);
 
-	        createCell(row, 22, "username", style);
-	        createCell(row, 23, "tracking id", style);
-	        createCell(row, 24, "email", style);
-	        createCell(row, 25, "phone no", style);
+	        createCell(row, 22, "Username", style);
+	        createCell(row, 23, "Tracking Id", style);
+	        createCell(row, 24, "Email", style);
+	        createCell(row, 25, "Phone no. 2", style);
 
 	         
 	    }

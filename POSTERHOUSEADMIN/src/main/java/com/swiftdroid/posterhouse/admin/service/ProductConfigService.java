@@ -9,5 +9,7 @@ public interface ProductConfigService {
 
 	public ProductConfig findProductConfigById(Long id);
 
+	ProductConfig findByProductConfigCode(String productConfigCode);
+
 	
 }

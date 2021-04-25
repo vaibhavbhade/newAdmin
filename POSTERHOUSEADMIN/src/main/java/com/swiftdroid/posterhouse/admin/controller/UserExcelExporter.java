@@ -76,7 +76,6 @@ public class UserExcelExporter {
 	            createCell(row, columnCount++, user.getEmail(), style);
 	            createCell(row, columnCount++, user.getFirstName(), style);
 	            createCell(row, columnCount++, user.getPhone(), style);
-	            createCell(row, columnCount++, user.isEnabled(), style);
 	             
 	        }
 	    }

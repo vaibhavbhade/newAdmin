@@ -16,35 +16,35 @@ public class ProductServiceImpl implements ProductService {
 
 	
 	@Autowired
-	private ProductRepository bookRepository;
+	private ProductRepository productRepository;
 	
 	
 	@Override
 	public Product save(Product product) {
 		
 		
-		return bookRepository.save(product);
+		return productRepository.save(product);
 	}
 
 
 	@Override
 	public List<Product> findAll() {
 		// TODO Auto-generated method stub
-		return (List<Product>) bookRepository.findAll();
+		return (List<Product>) productRepository.findAll();
 	}
 
 
 	@Override
 	public Product findOneBook(Long id) {
 		// TODO Auto-generated method stub
-		return bookRepository.findById(id).orElse(null);
+		return productRepository.findById(id).orElse(null);
 	}
 
 
 	@Override
 	public Product updateBook(Long id) {
 		// TODO Auto-generated method stub
-		return bookRepository.findById(id).orElse(null);
+		return productRepository.findById(id).orElse(null);
 	}
 
 
@@ -55,7 +55,14 @@ public class ProductServiceImpl implements ProductService {
 		productType.getProducts().add(product);
 		
 		// TODO Auto-generated method stub
-		return bookRepository.save(product);
+		return productRepository.save(product);
+	}
+
+
+	@Override
+	public Product findByProductCode(String productCode) {
+		// TODO Auto-generated method stub
+		return productRepository.findByProductCode(productCode);
 	}
 
 }

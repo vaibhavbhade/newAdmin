@@ -47,7 +47,7 @@
 
 					<!-- productDescription -->
 					<div class="form-group">
-						<label class="col-md-2 control-label" for="productDescription">Product Description</label>
+						<label class="col-md-2 control-label" for="productDescription">* Product Description</label>
 						<div class="col-md-8">
 							<input type="text" name="productDescription" class="form-control"
 								id="productDescription" th:value="${product.productDescription}"
@@ -56,18 +56,11 @@
 					</div>
 
 					<!-- publication date -->
-					<div class="form-group">
-						<label class="col-md-2 control-label" for="noOfFaces">No Of Faces</label>
-						<div class="col-md-8">
-							<input type="text" class="form-control" id="noOfFaces"
-								name="noOfFaces" th:value="${product.noOfFaces}"
-								placeholder="No Of Faces" required="required"/> 
-						</div>
-					</div>
+					
 
 					<!-- Maximum Quantity -->
 					<div class="form-group">
-						<label class="col-md-2 control-label" for="maximumQuantity">Maximum Quantity</label>
+						<label class="col-md-2 control-label" for="maximumQuantity">* Maximum Quantity</label>
 						<div class="col-md-8">
 							<input type="text" class="form-control" id="maximumQuantity"
 								name="maximumQuantity" th:value="${product.maximumQuantity}"
@@ -77,7 +70,7 @@
 					
 										<!-- Maximum Quantity -->
 					<div class="form-group">
-						<label class="col-md-2 control-label" for="maximumQuantity">Intial Price of Product</label>
+						<label class="col-md-2 control-label" for="maximumQuantity">* Intial Price of Product</label>
 						<div class="col-md-8">
 							<input type="text" class="form-control" id="ourPrice"
 								name="ourPrice" th:value="${product.ourPrice}"
@@ -86,10 +79,10 @@
 					</div>
 
 <div class="form-group">
-						<label class="col-md-2 control-label" for="maximumQuantity">Product Category</label>
+						<label class="col-md-2 control-label" for="maximumQuantity">* Product Category</label>
 						<div class="col-md-8">
 							<input type="text" class="form-control" id="categoryId"
-								name="categoryId" th:value="${product.productType.id}"
+								name="categoryId" th:value="${product.productType.productTypeName}"
 								placeholder="Product Category" readonly="readonly" /> 
 						</div>
 					</div>
@@ -107,7 +100,7 @@
 							
  
  <div class="form-group">
-						<label class="col-md-2 control-label" for="inStockNumber">Upload Main Image </label>
+						<label class="col-md-2 control-label" for="inStockNumber">* Upload Main Image </label>
 						<div class="col-md-8">
 							<input  type="file"
 								name="file" class="form-control" id="file"
@@ -117,7 +110,7 @@
 					
 							
 							<div class="form-group">
-						<label class="col-md-2 control-label" for="inStockNumber">Upload Extra Image:1</label>
+						<label class="col-md-2 control-label" for="inStockNumber">* Upload Extra Image:1</label>
 						<div class="col-md-8">
 							<input  type="file"
 								name="file" class="form-control" id="file"
@@ -126,7 +119,7 @@
 					</div>
 					
  <div class="form-group">
-						<label class="col-md-2 control-label" for="inStockNumber">Upload Extra Image:2</label>
+						<label class="col-md-2 control-label" for="inStockNumber">* Upload Extra Image:2</label>
 						<div class="col-md-8">
 							<input  type="file"
 								name="file" class="form-control" id="file"
@@ -135,7 +128,7 @@
 					</div>
 					
  <div class="form-group">
-						<label class="col-md-2 control-label" for="inStockNumber">Upload Extra Image:3</label>
+						<label class="col-md-2 control-label" for="inStockNumber">* Upload Extra Image:3</label>
 						<div class="col-md-8">
 							<input  type="file"
 								name="file" class="form-control" id="file"
@@ -144,21 +137,21 @@
 					</div>
 							
 								<div class="form-group">
-						<label class="col-md-2 control-label" for="status">Status</label>
+						<label class="col-md-2 control-label" for="status">* Status</label>
 						<div class="col-md-8">
-							<label><input value="true" type="radio" name="status"
-								checked="checked" /> enable </label> <label><input
-								value="false" type="radio" name=status  required="required"/>
+							<label><input value="true" type="radio" th:checked="${product.status}==true" name="status"
+								 /> enable </label> <label><input
+								value="false" type="radio" name="status" th:checked="${product.status}==false"   required="required" />
 								disable </label> 
 						</div>
 					</div>
 					
 							<div class="form-group">
-						<label class="col-md-2 control-label" for="status">Delivery Status</label>
+						<label class="col-md-2 control-label" for="status">* Delivery Status</label>
 						<div class="col-md-8">
-							<label><input value="true" type="radio" name="adminStatus"
+							<label><input value="true" type="radio" th:checked="${product.adminStatus}==true" name="adminStatus"
 								checked="checked" /> delhivery-express </label> <label><input
-								value="false" type="radio" name="adminStatus"  required="required"/>
+								value="false" type="radio"  th:checked="${product.adminStatus}==false" name="adminStatus"  required="required"/>
 								POSTERHOUSE </label> <span class="help-block">Whether the product is
 								deliver using Delhivary.com or POSTERHOUSE</span>
 						</div>

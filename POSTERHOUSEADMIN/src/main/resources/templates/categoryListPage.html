@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar" />
+	
+	<div class="container">
+	
+	<h3> Product-Type List</h3>
+<div>
+<span style="color: red;"class="alert alert-success" th:if="${ProductConfigAdded}">ProductConfig added successfully.</span>
+</div>
+		<div class="table-responsive">
+			<table id="bookListTable" class="table table-bordered table-hover table-striped">
+				<thead>
+					<tr>
+						<th><input th:id="selectAllBooks" type="checkbox" /></th>
+						<th>ProductType Name</th>
+						<th>ProductType code</th>
+						<th>ProductType Description</th>
+						<th>status</th>
+						<th>Operation</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-th-each="productType : ${productTypeList}" >
+						<td>
+						<input hidden="hidden" name="id" th:value="${productType.id}" />
+						<input th:id="'selected'+${productType.id}" class="checkboxBook" type="checkbox" />
+						</td>
+						<td><a href="#"><span th:text="${productType.productTypeName}"></span></a></td>
+						<td th:text="${productType.productTypeCode}"></td>
+												<td th:text="${productType.productTypeDiscription}"></td>
+												<td  th:if="${productType.status}==true">Active</td>
+						<td style="color: red;" th:if="${productType.status}==false">Inactive</td>
+						
+						<td>
+							<input hidden="hidden" name="id" th:value="${productType.id}" />
+						
+							<a th:href="@{/updateProducttype(id=${productType.id})}" class="btn btn-primary form-group"> Update</a><br><br>
+							
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+	
+	<div th:replace="common/header :: body-bottom-scripts" />
+	
+	<script>
+		$(document).ready(function() {
+			$("#bookListTable").DataTable({
+				  "lengthMenu": [ [5, 10, 25, -1], [5, 10, 25, "All"] ],
+                "ordering": false,
+				stateSave: true
+			});
+		});
+	</script>
+</body>
+</html>

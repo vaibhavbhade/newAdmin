@@ -9,5 +9,6 @@ public interface CategoryService {
 	public ProductType saveCategory(ProductType productType);
 	public ProductType findById(Long ProductType);
 	public List<ProductType> findAll();
-	
+	ProductType findByProductTypeCode(String productCode);
+
 }

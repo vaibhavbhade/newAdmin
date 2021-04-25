@@ -6,5 +6,7 @@ import com.swiftdroid.posterhouse.admin.model.ProductType;
 
 public interface CategoryRepository extends CrudRepository<ProductType, Long>
 {
+	ProductType findByProductTypeCode(String productTypeCode);
+
 
 }

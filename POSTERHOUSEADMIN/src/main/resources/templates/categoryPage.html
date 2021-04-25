@@ -3,14 +3,17 @@
 <head th:replace="common/header :: common-header" />
 
 <body>
-	<div th:replace="common/header :: navbar" />
+	<div th:replace="common/header :: navbar" ></div>
+	<div class="container">
+	
 	<div>
-	<span style="color: green;"class="alert alert-danger" th:if="${CategoryAdded}">category added successfully.</span>
+	<div style="color: green;"class="alert alert-danger" th:if="${CategoryAdded}">category added successfully.</div>
 	</div>
 	
 	<div>
-	<span style="color: red;"class="alert alert-danger" th:if="${error}">Something Went Wrong.</span>
+	<div style="color: red;"class="alert alert-danger" th:if="${error}">Product-type Code is Already Exist.</div>
 	</div>
+	<br>
 	<form class="form-horizontal" th:action="@{/addCategory}" method="post" enctype="multipart/form-data">
 				<fieldset>
 					<legend class="center-block">
@@ -42,34 +45,43 @@
 
 					<!-- productDescription -->
 					<div class="form-group">
-						<label class="col-md-2 control-label" for="publisher">ProductType Description</label>
+						<label class="col-md-2 control-label" for="publisher">* ProductType Description</label>
 						<div class="col-md-8">
 							<input type="text" name="productTypeDiscription" class="form-control"
 								id="productTypeDiscription" th:value="${productType.productTypeDiscription}"
-								placeholder="ProductType Discription" /> 
+								placeholder="ProductType Discription" required="required" /> 
+						</div>
+					</div>
+						<div class="form-group">
+						<label class="col-md-2 control-label" for="status">* Select Product-Type Status</label>
+						<div class="col-md-8">
+							<label><input value="true"    type="radio" name="status"
+									checked="checked"	/> Yes </label> <label><input
+						  value="false" type="radio"  name="status"  required="required"/>
+								No </label>
 						</div>
 					</div>
 					 <div class="form-group">
-						<label class="col-md-2 control-label" for="inStockNumber">Upload Category Image</label>
+						<label class="col-md-2 control-label" for="inStockNumber">* Upload Category Image</label>
 						<div class="col-md-8">
-							<p ><img alt="Main Image preview" height="20%" width="20%" id="thumbnail3" /></p>
+							<p ><img alt="Main Image preview" height="20%" width="20%" id="thumbnail3" required="required" /></p>
 						
 							<input  type="file"
 								name="catImage" class="form-control" id="extraImage3"
-								 /> 
+								required="required" /> 
 						</div>
 					</div>
 					
 							<div class="form-group">
-						<label class="col-md-2 control-label" for="status">Select BannerImage</label>
+						<label class="col-md-2 control-label" for="status">* Select BannerImage</label>
 						<div class="col-md-8">
-							<label><input value="true" type="radio" name="BannerImageStatus"
-								checked="checked" /> Yes </label> <label><input
-								value="false" type="radio" name="BannerImageStatus"  required="required"/>
+							<label><input value="true" onclick="ShowHideDiv(this.value)"   type="radio" name="BannerImageStatus"
+								/> Yes </label> <label><input
+								checked="checked"  value="false" type="radio" onclick="ShowHideDiv(this.value)" name="BannerImageStatus"  required="required"/>
 								No </label>
 						</div>
 					</div>
- <div class="form-group">
+ <div class="form-group" id="dvPassport" style="display: none;">
 						<label class="col-md-2 control-label" for="inStockNumber">Upload Banner Image:</label>
 						<div class="col-md-8">
 							<p ><img alt="Main Image preview" height="20%" width="20%" id="thumbnail2" /></p>
@@ -89,9 +101,22 @@
 	</fieldset>
 	</form>
 	
+	</div>
 	
 	
 	<div th:replace="common/header :: body-bottom-scripts" />
+	<script type="text/javascript">
+    function ShowHideDiv(chkPassport) {
+
+    	if(chkPassport=='true'){
+    		  $("#dvPassport").show();
+
+    	}else{
+  		  $("#dvPassport").hide();
+
+    	}
+    }
+</script>
 
 </body>
 </html>

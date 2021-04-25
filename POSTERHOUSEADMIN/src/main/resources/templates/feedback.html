@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+
+<body>
+	<div th:replace="common/header :: navbar" />
+	
+<!-- 	<!-- Start Banner Area -->
+		<!-- <div class="alert alert-success" th:if="${pickUpSuccess}" role="alert">
+			Order PickUp Updated successfully!</div>
+		<div class="alert alert-danger" th:if="${Error}" role="alert">
+			Something Went Wrong!</div>
+
+		<div>
+			<span style="color: green;" class="alert alert-success"
+				th:if="${UpdateStatus}">Order Status Updated successfully.</span>
+		</div>
+		-->  <br>
+		<h1 style="text-align: center;">Feedback</h1>
+		<br>
+		<section>
+			<table id="orderTable" class="table">
+				<thead>
+					<tr>
+						<th scope="col">Sr.no</th>
+						<th scope="col">User Name</th>
+						<th scope="col">Email</th>
+						<th scope="col">Phone No</th>
+						<th scope="col">Feedback</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="feedback : ${feedback}">
+						<td th:text="${index}"></td>
+						<td data-th-text="${feedback.username}"></td>
+						<td data-th-text="${feedback.email}"></td>
+						<td data-th-text="${feedback.PhoneNo}"></td>
+						<td><p  data-th-text="${feedback.feedback}"></p></td>
+					</tr>
+					</hr>
+
+				</tbody>
+			</table>
+
+		</section>
+
+
+		<!-- start footer Area -->
+
+		<div th:replace="common/header :: body-bottom-scripts" />
+		<script>
+
+function myFunction() {
+	  var x = document.getElementById("myTopnav");
+	  if (x.className === "topnav") {
+	    x.className += " responsive";
+	  } else {
+	    x.className = "topnav";
+	  }
+	}
+	
+
+$(document).ready(function() {
+	$("#orderTable").DataTable({
+		  "lengthMenu": [ [5, 10, 25, -1], [5, 10, 25, "All"] ],
+        "ordering": false,
+		stateSave: true
+	});
+});
+
+</script></body>
+</html>
