@@ -139,6 +139,7 @@ public class ProductController {
 			return "redirect:/addCategory?CategoryAdded=true";
 		} catch (Exception e) {
 			// TODO: handle exception
+			System.out.println(e.getMessage());
 			model.addAttribute("error", true);
 			return "redirect:/addCategory?error=true";
 		}
@@ -197,6 +198,7 @@ public class ProductController {
 				count++;
 				strem.close();
 			} catch (Exception e) {
+				System.out.println(e.getMessage());
 				e.printStackTrace();
 			}
 
@@ -368,6 +370,7 @@ public class ProductController {
 					count++;
 					strem.close();
 				} catch (Exception e) {
+					System.out.println(e.getMessage());
 					e.printStackTrace();
 				}
 
@@ -487,6 +490,7 @@ public String updateProductType(@RequestParam("id") Long id,Model model) {
 			model.addAttribute("CategoryAdded", true);
 			return "redirect:/categoryList";
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			// TODO: handle exception
 			model.addAttribute("error", true);
 			return "redirect:/addCategory?error=true";

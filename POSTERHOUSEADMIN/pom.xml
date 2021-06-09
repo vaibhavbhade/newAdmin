@@ -18,9 +18,17 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<start-class>com.swiftdroid.posterhouse.admin.PosterhouseadminApplication</start-class>
 	</properties>
 
 	<dependencies>
+	
+	<dependency>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-starter-tomcat</artifactId>
+   <scope>provided</scope>
+</dependency>
+	
 	<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 <dependency>
     <groupId>com.fasterxml.jackson.core</groupId>
